@@ -1,21 +1,23 @@
-import { RadioButtonGroup } from "@grafana/ui";
-import { RadioButton } from "@grafana/ui/components/Forms/RadioButtonGroup/RadioButton";
-import { ControlTitle, ControlWrap } from "components/Layout";
+import { Radio } from "antd";
 import React, { FC } from "react";
 import styled from "styled-components";
 
-export const RadioControl: FC = () => {
+interface Props {
+  onChange(): void;
+  value: string;
+}
+
+export const RadioControl: FC<Props> = ({ value, onChange }) => {
   return (
-    <ControlWrap>
-      <ControlTitle>Radio Control</ControlTitle>
-      <RadioButtonGroup
-        options={[
-          <input type='radio' id='test1' onChange={() => {}} />,
-          <input type='radio' id='test2' onChange={() => {}} />,
-          <input type='radio' id='test3' onChange={() => {}} />,
-        ]}
-      ></RadioButtonGroup>
-    </ControlWrap>
+    <Radio.Group onChange={onChange} value={value}>
+      <StyledRadio value={"name1"}>Option A</StyledRadio>
+      <StyledRadio value={"name2"}>Option B</StyledRadio>
+      <StyledRadio value={"name3"}>Option C</StyledRadio>
+    </Radio.Group>
   );
 };
-const StyledContainer = styled.div``;
+
+const StyledRadio = styled(Radio)`
+  display: block;
+  margin: 0 0 10px;
+`;

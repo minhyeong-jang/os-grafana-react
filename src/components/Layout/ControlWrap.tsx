@@ -6,7 +6,10 @@ export const ControlWrap: FC = ({ children }) => {
 };
 const StyledContainer = styled.div`
   flex: 1 1 33%;
-  padding: 20px;
-  background-color: white;
-  margin: 30px;
+  padding: 20px 30px;
+  background-color: #efefef;
+  margin: 20px;
+  color: #111111;
+  border-radius: 15px;
+  max-width: 500px;
 `;
