@@ -1,15 +1,15 @@
 import {
   getControllerData,
   ControllerData,
-  ControllerType,
+  ControllerDataType,
   ControllerDataItems,
-} from "api/getControllerData";
+} from "api";
 import { useEffect, useState } from "react";
 import randomstring from "randomstring";
 
 export interface AddController {
   title: string;
-  type: ControllerType;
+  type: ControllerDataType;
   items: ControllerDataItems[];
 }
 export const useController = (serverUrl: string) => {

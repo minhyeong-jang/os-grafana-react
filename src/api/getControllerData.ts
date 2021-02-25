@@ -6,7 +6,7 @@ export interface GetControllerDataResponse {
 export interface ControllerData {
   id: string | number;
   title: string;
-  type: ControllerType;
+  type: ControllerDataType;
   items: ControllerDataItems[];
 }
 export interface ControllerDataItems {
@@ -15,7 +15,7 @@ export interface ControllerDataItems {
   label: string;
   value: boolean | string;
 }
-export type ControllerType =
+export type ControllerDataType =
   | "switch"
   | "radio"
   | "input"

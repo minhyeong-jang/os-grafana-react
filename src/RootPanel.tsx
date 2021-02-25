@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { PanelProps } from "@grafana/data";
 import { ControllerContainer } from "containers";
 import styled from "styled-components";
-import { ControlAddModal } from "components/ControlModal";
+import { ControllerAddModal } from "components/ControllerModal";
 import { useController } from "hooks";
 
 interface Props extends PanelProps<any> {}
@@ -14,7 +14,7 @@ export const RootPanel: React.FC<Props> = ({ options }) => {
   return (
     <StyledPanelWrap>
       <ControllerContainer data={controllerData} />
-      <ControlAddModal
+      <ControllerAddModal
         isModalVisible={isModalVisible}
         onModal={() => setIsModalVisible(true)}
         handleOk={() => {}}
