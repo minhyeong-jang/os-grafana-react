@@ -1,11 +1,11 @@
-import { baseApi } from "~modules/common";
+import { baseApi } from "./env";
 
 interface PutSwitchPanelParmas {
   id: string;
   value: boolean;
 }
-interface GetArticleResponse = ArticleSchema;
+interface GetArticleResponse {}
 
-export const putSwitchPanel = (articleId: string) => {
-  return baseApi.get<PutSwitchPanelParmas>(`/api/v1/articles/${articleId}`);
+export const putSwitchPanel = (params: PutSwitchPanelParmas) => {
+  return baseApi.put<GetArticleResponse>(`/putApi`, { params });
 };
