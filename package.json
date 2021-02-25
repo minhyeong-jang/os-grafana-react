@@ -16,6 +16,7 @@
     "@grafana/toolkit": "latest",
     "@grafana/ui": "latest",
     "@types/antd": "^1.0.0",
+    "@types/randomstring": "^1.1.6",
     "@types/styled-components": "^5.1.7",
     "emotion": "10.0.27"
   },
@@ -25,6 +26,7 @@
   "dependencies": {
     "antd": "^4.12.3",
     "axios": "^0.21.1",
+    "randomstring": "^1.1.5",
     "react": "^17.0.1",
     "styled-components": "^5.2.1"
   }

@@ -1,20 +1,22 @@
 import { Button, Input, Modal, Radio, Select } from "antd";
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import styled from "styled-components";
 
 const { Option } = Select;
 
 interface Props {
   isModalVisible: boolean;
+  onModal(): void;
   handleOk(): void;
   handleCancel(): void;
 }
 export const ControlAddModal: FC<Props> = ({
   isModalVisible,
+  onModal,
   handleOk,
   handleCancel,
 }) => {
-  const [value, setValue] = React.useState(1);
+  const [value, setValue] = useState(1);
 
   const onChange = (value: string) => {
     console.log("radio checked", value);
@@ -25,6 +27,11 @@ export const ControlAddModal: FC<Props> = ({
     setValue(e.target.value);
   };
   return (
+    <>
+      <StyledAddButton type='primary' onClick={() => onModal()}>
+        컨트롤러 추가
+      </StyledAddButton>
+      
     <Modal
       title='컨트롤러 추가'
       visible={isModalVisible}
@@ -102,6 +109,7 @@ export const ControlAddModal: FC<Props> = ({
         </StyledWrap>
       </StyledModalWrap>
     </Modal>
+    </>
   );
 };
 
@@ -148,4 +156,11 @@ const StyledItem = styled.div`
 const StyledAction = styled.div`
   flex: 0 0 100px;
   text-align: center;
+`;
+
+
+const StyledAddButton = styled(Button)`
+
+  width: 100%;
+  margin: 20px 0px;
 `;

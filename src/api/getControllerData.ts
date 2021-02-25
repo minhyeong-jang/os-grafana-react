@@ -7,9 +7,9 @@ export interface ControllerData {
   id: string | number;
   title: string;
   type: ControllerType;
-  items: ControllerItems[];
+  items: ControllerDataItems[];
 }
-interface ControllerItems {
+export interface ControllerDataItems {
   id: string | number;
   type: ControllerItemType;
   label: string;

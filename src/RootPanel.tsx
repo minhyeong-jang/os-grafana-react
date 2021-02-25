@@ -1,12 +1,7 @@
 import React, { useState } from "react";
 import { PanelProps } from "@grafana/data";
-import {
-  CheckboxPanelContainer,
-  RadioPanelContainer,
-  SwitchPanelContainer,
-} from "containers";
+import { ControllerContainer } from "containers";
 import styled from "styled-components";
-import { Button } from "antd";
 import { ControlAddModal } from "components/ControlModal";
 import { useController } from "hooks";
 
@@ -18,16 +13,10 @@ export const RootPanel: React.FC<Props> = ({ options }) => {
 
   return (
     <StyledPanelWrap>
-      <StyledContainer>
-        <SwitchPanelContainer />
-        <RadioPanelContainer />
-        <CheckboxPanelContainer />
-      </StyledContainer>
-      <StyledAddButton type='primary' onClick={() => setIsModalVisible(true)}>
-        컨트롤러 추가
-      </StyledAddButton>
+      <ControllerContainer data={controllerData} />
       <ControlAddModal
         isModalVisible={isModalVisible}
+        onModal={() => setIsModalVisible(true)}
         handleOk={() => {}}
         handleCancel={() => setIsModalVisible(false)}
       />
@@ -37,14 +26,5 @@ export const RootPanel: React.FC<Props> = ({ options }) => {
 
 const StyledPanelWrap = styled.div`
   height: 100%;
-`;
-const StyledContainer = styled.div`
-  display: flex;
   overflow: hidden;
-`;
-const StyledAddButton = styled(Button)`
-  position: absolute;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
 `;
