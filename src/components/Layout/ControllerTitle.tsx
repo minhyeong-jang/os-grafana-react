@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import styled from "styled-components";
 
-export const ControlTitle: FC = ({ children }) => {
+export const ControllerTitle: FC = ({ children }) => {
   return <StyledContainer>{children}</StyledContainer>;
 };
 const StyledContainer = styled.div`

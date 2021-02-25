@@ -1,2 +1,2 @@
-export * from "./ControlTitle";
-export * from "./ControlWrap";
+export * from "./ControllerTitle";
+export * from "./ControllerWrap";

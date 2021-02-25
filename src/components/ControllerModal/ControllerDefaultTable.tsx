@@ -24,7 +24,7 @@ const ControllerDefaultTableComponent: FC<Props> = ({
           <StyledAction>Action</StyledAction>
         </StyledLi>
         {items.map((item, index) => (
-          <StyledLi>
+          <StyledLi key={index}>
             <StyledItem>
               <Input
                 value={item.label}
@@ -65,7 +65,6 @@ const StyledLi = styled.li`
     border-bottom: 1px solid #dedede;
   }
 `;
-
 const StyledItem = styled.div`
   flex: 1 1 auto;
   text-align: center;

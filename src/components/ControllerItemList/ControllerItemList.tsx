@@ -3,11 +3,14 @@ import { CheckboxControl } from "components/CheckboxControl";
 import { SwitchControl } from "components/SwitchControl";
 import React, { FC } from "react";
 import styled from "styled-components";
+import { CheckboxData } from "./CheckboxData";
+import { InputData } from "./InputData";
+import { SwitchData } from "./SwitchData";
 
 interface Props {
   items: ControllerDataItems[];
 }
-export const ControlList: FC<Props> = ({ items }) => {
+export const ControllerItemList: FC<Props> = ({ items }) => {
   const onChange = () => {};
 
   return (
@@ -16,25 +19,33 @@ export const ControlList: FC<Props> = ({ items }) => {
         switch (item.type) {
           case "switch":
             return (
-              <SwitchControl
+              <SwitchData
                 label={item.label}
-                checked={!!item.value}
+                isChecked={!!item.value}
                 onChange={onChange}
               />
             );
           case "checkbox":
             return (
-              <CheckboxControl
+              <CheckboxData
                 label={item.label}
-                checked={!!item.value}
+                isChecked={!!item.value}
                 onChange={onChange}
               />
             );
-          case "switch":
+          case "input":
             return (
-              <SwitchControl
+              <InputData
                 label={item.label}
-                checked={!!item.value}
+                value={item.value as string}
+                onChange={onChange}
+              />
+            );
+          case "radio":
+            return (
+              <InputData
+                label={item.label}
+                value={item.value as string}
                 onChange={onChange}
               />
             );

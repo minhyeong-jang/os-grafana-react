@@ -1,6 +1,6 @@
 import { ControllerData } from "api/getControllerData";
-import { ControlList } from "components/ControlList";
-import { ControlTitle, ControlWrap } from "components/Layout";
+import { ControllerItemList } from "components/ControllerItemList";
+import { ControllerTitle, ControllerWrap } from "components/Layout";
 import React, { FC, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
@@ -18,10 +18,8 @@ export const ControllerContainer: FC<Props> = ({ data }) => {
     }
     if (clientWidth < 700) {
       setColumns(2);
-    } else if (clientWidth < 900) {
-      setColumns(3);
     } else {
-      setColumns(4);
+      setColumns(3);
     }
   };
 
@@ -36,10 +34,10 @@ export const ControllerContainer: FC<Props> = ({ data }) => {
   return (
     <StyledContainer ref={divRef} columns={columns}>
       {data.map((controller) => (
-        <ControlWrap>
-          <ControlTitle>{controller.title}</ControlTitle>
-          <ControlList items={controller.items} />
-        </ControlWrap>
+        <ControllerWrap>
+          <ControllerTitle>{controller.title}</ControllerTitle>
+          <ControllerItemList items={controller.items} />
+        </ControllerWrap>
       ))}
     </StyledContainer>
   );
