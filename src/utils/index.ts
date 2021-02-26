@@ -18,6 +18,6 @@ export const generateControllerItem = (
     id: randomstring.generate(),
     label: "",
     type: defaultType,
-    value: "",
+    value: defaultType === "input" ? "" : false,
   };
 };

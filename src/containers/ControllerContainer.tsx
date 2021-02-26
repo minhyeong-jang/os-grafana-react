@@ -1,13 +1,15 @@
 import { ControllerData } from "api/getControllerData";
 import { ControllerItemList } from "components/ControllerItemList";
 import { ControllerTitle, ControllerWrap } from "components/Layout";
+import { OnControllerItem } from "hooks";
 import React, { FC, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
 interface Props {
   data: ControllerData[];
+  onControllerItem(data: OnControllerItem): void;
 }
-export const ControllerContainer: FC<Props> = ({ data }) => {
+export const ControllerContainer: FC<Props> = ({ data, onControllerItem }) => {
   const [columns, setColumns] = useState(4);
   const divRef = useRef<HTMLDivElement>(null);
 
@@ -33,10 +35,15 @@ export const ControllerContainer: FC<Props> = ({ data }) => {
 
   return (
     <StyledContainer ref={divRef} columns={columns}>
-      {data.map((controller) => (
-        <ControllerWrap>
+      {data.map((controller, index) => (
+        <ControllerWrap key={index}>
           <ControllerTitle>{controller.title}</ControllerTitle>
-          <ControllerItemList items={controller.items} />
+          <ControllerItemList
+            controllerIndex={index}
+            type={controller.type}
+            items={controller.items}
+            onControllerItem={onControllerItem}
+          />
         </ControllerWrap>
       ))}
     </StyledContainer>
@@ -45,7 +52,7 @@ export const ControllerContainer: FC<Props> = ({ data }) => {
 
 const StyledContainer = styled.div<{ columns: number }>`
   display: grid;
-  gap: 68px 20px;
+  gap: 20px 20px;
   grid-template-columns: repeat(${({ columns }) => columns}, 1fr);
   margin: 0px;
 `;

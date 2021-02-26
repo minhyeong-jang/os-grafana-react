@@ -8,15 +8,18 @@ import { useController } from "hooks";
 interface Props extends PanelProps<any> {}
 
 export const RootPanel: React.FC<Props> = ({ options }) => {
-  const { controllerData, addController } = useController(options.text);
+  const { controllerData, addController, onControllerItem } = useController(
+    options.text
+  );
   const [isModalVisible, setIsModalVisible] = useState(false);
-
-  console.log(controllerData);
 
   return (
     <StyledPanelWrap>
-      <ControllerContainer data={controllerData} />
       <ModalButton onModal={() => setIsModalVisible(true)} />
+      <ControllerContainer
+        data={controllerData}
+        onControllerItem={onControllerItem}
+      />
       {isModalVisible && (
         <ControllerAddModal
           isModalVisible={isModalVisible}
@@ -30,5 +33,5 @@ export const RootPanel: React.FC<Props> = ({ options }) => {
 
 const StyledPanelWrap = styled.div`
   height: 100%;
-  overflow: hidden;
+  overflow: scroll;
 `;

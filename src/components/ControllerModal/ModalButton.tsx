@@ -14,5 +14,5 @@ export const ModalButton: FC<Props> = ({ onModal }) => {
 };
 const StyledAddButton = styled(Button)`
   width: 100%;
-  margin: 40px 0px 20px 0px;
+  margin: 10px 0px 20px 0px;
 `;

@@ -60,10 +60,6 @@ const StyledUl = styled.ul`
 const StyledLi = styled.li`
   display: flex;
   padding: 9px 0px;
-
-  &:not(:last-child) {
-    border-bottom: 1px solid #dedede;
-  }
 `;
 const StyledItem = styled.div`
   flex: 1 1 auto;

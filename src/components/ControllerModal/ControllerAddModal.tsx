@@ -12,6 +12,7 @@ import { ControllerMultipleTable } from "./ControllerMultipleTable";
 import { ControllerDefaultTable } from "./ControllerDefaultTable";
 import { generateControllerItem } from "utils";
 import { AddController } from "hooks";
+import { ControllerItemList } from "components/ControllerItemList";
 
 interface Props {
   isModalVisible: boolean;
@@ -41,7 +42,6 @@ export const ControllerAddModal: FC<Props> = ({
     setItems((prevState) => [...prevState, generateControllerItem(type)]);
   };
   const removeItems = (id: string | number) => {
-    console.log(id);
     setItems(items.filter((item) => item.id !== id));
   };
   const changeLabel = (id: string | number, value: string) => {
@@ -50,9 +50,14 @@ export const ControllerAddModal: FC<Props> = ({
     );
     setItems(updateItems);
   };
-  const changeType = (id: string | number, value: ControllerItemType) => {
+  const changeType = (id: string | number, type: ControllerItemType) => {
     const updateItems = items.map((item) =>
-      item.id === id ? Object.assign({}, item, { type: value }) : item
+      item.id === id
+        ? Object.assign({}, item, {
+            type,
+            value: type === "input" ? "" : false,
+          })
+        : item
     );
     setItems(updateItems);
   };
@@ -84,6 +89,13 @@ export const ControllerAddModal: FC<Props> = ({
           />
         )}
       </StyledModalWrap>
+      <StyledPreviewTitle>미리보기</StyledPreviewTitle>
+      <StyledControllerItemList
+        type={type}
+        items={items}
+        controllerIndex={0}
+        onControllerItem={() => {}}
+      />
     </Modal>
   );
 };
@@ -91,16 +103,12 @@ export const ControllerAddModal: FC<Props> = ({
 const StyledModalWrap = styled.div`
   margin: -10px 0;
 `;
-const StyledPreviewWrap = styled.div`
-  padding: 10px;
+const StyledPreviewTitle = styled.p`
+  margin: 30px 0px 10px;
+  font-weight: bold;
+`;
+const StyledControllerItemList = styled(ControllerItemList)`
+  padding: 15px;
   border: 1px solid #dedede;
   border-radius: 5px;
-  margin: 10px 0px;
-`;
-const StyledRadio = styled(Radio)`
-  display: block;
-
-  &:not(:last-child) {
-    margin-bottom: 10px;
-  }
 `;

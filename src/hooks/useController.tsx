@@ -6,39 +6,26 @@ import {
 } from "api";
 import { useEffect, useState } from "react";
 import randomstring from "randomstring";
+import { labelsToFieldsTransformer } from "@grafana/data/transformations/transformers/labelsToFields";
 
 export interface AddController {
   title: string;
   type: ControllerDataType;
   items: ControllerDataItems[];
 }
+export interface OnControllerItem {
+  controllerId?: string | number;
+  itemId?: string | number;
+  controllerIndex: number;
+  itemIndex: number;
+  value: string | boolean;
+}
 export const useController = (serverUrl: string) => {
   const [controllerData, setControllerData] = useState<ControllerData[]>([
     {
-      id: "controller1",
-      type: "switch",
-      title: "Switch Controller",
-      items: [
-        { id: "switch-1", type: "switch", label: "name 1", value: false },
-        { id: "switch-2", type: "switch", label: "name 2", value: true },
-        { id: "switch-3", type: "switch", label: "name 3", value: false },
-      ],
-    },
-    {
-      id: "controller2",
-      type: "multiple",
-      title: "Multiple Controller",
-      items: [
-        { type: "switch", id: "multi-1", label: "name 1", value: false },
-        { type: "input", id: "multi-2", label: "name 2", value: "multiple" },
-        { type: "checkbox", id: "multi-3", label: "name 3", value: true },
-        { type: "checkbox", id: "multi-4", label: "name 4", value: false },
-      ],
-    },
-    {
       id: "jhYkvDew5Y9Okx85x9TGQsqaAvG8s2eW",
       type: "input",
-      title: "Input Controller",
+      title: "입력형",
       items: [
         {
           id: "uTn3QbAMgl36E6Lvf2JxchmOo9pgkuYp",
@@ -57,6 +44,124 @@ export const useController = (serverUrl: string) => {
           label: "입력형 3번",
           type: "input",
           value: "",
+        },
+      ],
+    },
+    {
+      id: "qEAOThsVvFgwz1I8i7NyZ2JOM7feObS3",
+      type: "radio",
+      title: "선택형",
+      items: [
+        {
+          id: "keb9ezHb5zmwbxzFqU7IRZvhWXvJlFFt",
+          label: "선택 1",
+          type: "radio",
+          value: "",
+        },
+        {
+          id: "tK9ccySfa0EIsom3KuE1mlLA3tsWHrGl",
+          label: "선택 2",
+          type: "radio",
+          value: "",
+        },
+        {
+          id: "0cbwS6ZpoCNKfKkV639IAJuntsvaoBQG",
+          label: "선택 3",
+          type: "radio",
+          value: "",
+        },
+      ],
+    },
+    {
+      id: "moOZSnQczM8DOef1IsPw0f8NcyVSP3S0",
+      type: "switch",
+      title: "스위치형",
+      items: [
+        {
+          id: "z2RHTNiWeAJLs8Dfe1Ggql0Gw7nqpF0o",
+          label: "스위치 1",
+          type: "switch",
+          value: false,
+        },
+        {
+          id: "EjHxBvFWFj6MubDfSZT2dTIuz2x4Uhgy",
+          label: "스위치 2",
+          type: "switch",
+          value: false,
+        },
+        {
+          id: "Lw4vEvd7HT1kEl4fu4Z1RqQVzMTysMDG",
+          label: "스위치 3",
+          type: "switch",
+          value: false,
+        },
+        {
+          id: "oSJwKXYmD8cStY7X1treeSCqSqjRTcm0",
+          label: "스위치 4",
+          type: "switch",
+          value: false,
+        },
+      ],
+    },
+    {
+      id: "wGJAbbwkSd0K7qv5DWE0Y2ghhat9OHbJ",
+      type: "checkbox",
+      title: "체크박스형",
+      items: [
+        {
+          id: "iCttd5ga1TOuLmdCgpCVt2K3eq5b9uc4",
+          label: "체크박스 1",
+          type: "checkbox",
+          value: false,
+        },
+        {
+          id: "H1O2Q8xZRkLj0U1xetMwKfOXUabYICAX",
+          label: "체크박스 2",
+          type: "checkbox",
+          value: false,
+        },
+        {
+          id: "hbnHovbmgkL6yalZJpaWLkc5jHpmScMs",
+          label: "체크박스 3",
+          type: "checkbox",
+          value: false,
+        },
+        {
+          id: "IJ7MIhwZKRJFHROfDwHIzr0Mw5obdPAT",
+          label: "체크박스 44444",
+          type: "checkbox",
+          value: false,
+        },
+      ],
+    },
+    {
+      id: "xiecHphdmUaIYz0IwSE8pQicXfwW6nPu",
+      type: "multiple",
+      title: "복합형",
+      items: [
+        {
+          id: "Er6rriYbF6PQTrOepC9A3Wd84T66NQhU",
+          label: "input 데이터",
+          type: "input",
+          value: "",
+        },
+        {
+          id: "ITSlOR4aGwjZ7WCUcSWY865guiAwq4vJ",
+          label: "Checkbox 데이터",
+          type: "checkbox",
+          value: false,
+        },
+        {
+          id: "uz3J0i5xgRxjg6roW1Ed9DsbwVKW3osu",
+          label: "스위치 1",
+          type: "switch",
+          value: false,
+        },
+        {
+          id: "dyiUJCYd722gAxqribS7eeO9NTdh3UkJ",
+          label: "스위치 2",
+          type: "switch",
+          value: false,
         },
       ],
     },
@@ -82,6 +187,24 @@ export const useController = (serverUrl: string) => {
     return true;
   };
 
+  const onControllerItem = ({
+    controllerId,
+    itemId,
+    controllerIndex,
+    itemIndex,
+    value,
+  }: OnControllerItem) => {
+    const newData = controllerData.slice();
+    newData[controllerIndex].items[itemIndex].value = value;
+
+    setControllerData(newData);
+
+    try {
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   useEffect(() => {
     const getController = async () => {
       try {
@@ -97,5 +220,6 @@ export const useController = (serverUrl: string) => {
   return {
     controllerData,
     addController,
+    onControllerItem,
   };
 };

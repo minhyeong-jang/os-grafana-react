@@ -6,14 +6,14 @@ import { ControllerItemLabel, ControllerItemWrap } from "./ItemStyle";
 interface Props {
   label: string;
   value: string;
-  onChange(): void;
+  onChange(value: string): void;
 }
 
 export const InputData: FC<Props> = ({ label, onChange, value }) => {
   return (
     <ControllerItemWrap>
       <ControllerItemLabel>{label} : </ControllerItemLabel>
-      <StyledInput value={value} onChange={onChange} />
+      <StyledInput value={value} onChange={(e) => onChange(e.target.value)} />
     </ControllerItemWrap>
   );
 };
