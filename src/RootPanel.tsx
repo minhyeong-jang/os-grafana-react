@@ -8,9 +8,12 @@ import { useController } from "hooks";
 interface Props extends PanelProps<any> {}
 
 export const RootPanel: React.FC<Props> = ({ options }) => {
-  const { controllerData, addController, onControllerItem } = useController(
-    options.text
-  );
+  const {
+    controllerData,
+    addController,
+    changeControllerItem,
+    updateController,
+  } = useController(options.text);
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   return (
@@ -18,7 +21,8 @@ export const RootPanel: React.FC<Props> = ({ options }) => {
       <ModalButton onModal={() => setIsModalVisible(true)} />
       <ControllerContainer
         data={controllerData}
-        onControllerItem={onControllerItem}
+        changeControllerItem={changeControllerItem}
+        updateController={updateController}
       />
       {isModalVisible && (
         <ControllerAddModal

@@ -1,25 +1,24 @@
 import {
-  getControllerData,
+  putController,
+  getController,
   ControllerData,
   ControllerDataType,
   ControllerDataItems,
 } from "api";
 import { useEffect, useState } from "react";
 import randomstring from "randomstring";
-import { labelsToFieldsTransformer } from "@grafana/data/transformations/transformers/labelsToFields";
 
 export interface AddController {
   title: string;
   type: ControllerDataType;
   items: ControllerDataItems[];
 }
-export interface OnControllerItem {
-  controllerId?: string | number;
-  itemId?: string | number;
+export interface ChangeControllerItem {
   controllerIndex: number;
   itemIndex: number;
   value: string | boolean;
 }
+
 export const useController = (serverUrl: string) => {
   const [controllerData, setControllerData] = useState<ControllerData[]>([
     {
@@ -187,39 +186,41 @@ export const useController = (serverUrl: string) => {
     return true;
   };
 
-  const onControllerItem = ({
-    controllerId,
-    itemId,
+  const changeControllerItem = async ({
     controllerIndex,
     itemIndex,
     value,
-  }: OnControllerItem) => {
+  }: ChangeControllerItem) => {
     const newData = controllerData.slice();
     newData[controllerIndex].items[itemIndex].value = value;
 
     setControllerData(newData);
+  };
 
-    try {
-    } catch (e) {
-      console.log(e);
-    }
+  const updateController = async (index: number) => {
+    const target = controllerData[index];
+    await putController(serverUrl, {
+      controllerId: target.id,
+      items: target.items,
+    });
   };
 
   useEffect(() => {
-    const getController = async () => {
+    const getControllerData = async () => {
       try {
-        const res = await getControllerData(serverUrl);
+        const res = await getController(serverUrl);
         setControllerData(res.data);
       } catch (e) {
         console.log(e);
       }
     };
-    getController();
+    getControllerData();
   }, []);
 
   return {
     controllerData,
     addController,
-    onControllerItem,
+    changeControllerItem,
+    updateController,
   };
 };

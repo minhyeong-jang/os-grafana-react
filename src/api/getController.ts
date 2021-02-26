@@ -1,6 +1,6 @@
 import { baseApi } from "./env";
 
-export interface GetControllerDataResponse {
+export interface GetControllerResponse {
   data: ControllerData[];
 }
 export interface ControllerData {
@@ -23,6 +23,6 @@ export type ControllerDataType =
   | "multiple";
 export type ControllerItemType = "switch" | "radio" | "input" | "checkbox";
 
-export const getControllerData = (url: string) => {
-  return baseApi.get<GetControllerDataResponse>(url);
+export const getController = (url: string) => {
+  return baseApi.get<GetControllerResponse>(url);
 };

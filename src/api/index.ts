@@ -1,3 +1,3 @@
 export * from "./env";
-export * from "./putSwitchPanel";
-export * from "./getControllerData";
+export * from "./putController";
+export * from "./getController";

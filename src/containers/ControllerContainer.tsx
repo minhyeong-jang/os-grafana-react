@@ -1,15 +1,21 @@
-import { ControllerData } from "api/getControllerData";
+import { Button } from "antd";
+import { ControllerData } from "api/getController";
 import { ControllerItemList } from "components/ControllerItemList";
 import { ControllerTitle, ControllerWrap } from "components/Layout";
-import { OnControllerItem } from "hooks";
+import { ChangeControllerItem } from "hooks";
 import React, { FC, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
 interface Props {
   data: ControllerData[];
-  onControllerItem(data: OnControllerItem): void;
+  updateController(index: number): void;
+  changeControllerItem(data: ChangeControllerItem): void;
 }
-export const ControllerContainer: FC<Props> = ({ data, onControllerItem }) => {
+export const ControllerContainer: FC<Props> = ({
+  data,
+  updateController,
+  changeControllerItem,
+}) => {
   const [columns, setColumns] = useState(4);
   const divRef = useRef<HTMLDivElement>(null);
 
@@ -42,8 +48,14 @@ export const ControllerContainer: FC<Props> = ({ data, onControllerItem }) => {
             controllerIndex={index}
             type={controller.type}
             items={controller.items}
-            onControllerItem={onControllerItem}
+            changeControllerItem={changeControllerItem}
           />
+          <StyledApplyButton
+            type='primary'
+            onClick={() => updateController(index)}
+          >
+            업데이트
+          </StyledApplyButton>
         </ControllerWrap>
       ))}
     </StyledContainer>
@@ -55,4 +67,7 @@ const StyledContainer = styled.div<{ columns: number }>`
   gap: 20px 20px;
   grid-template-columns: repeat(${({ columns }) => columns}, 1fr);
   margin: 0px;
+`;
+const StyledApplyButton = styled(Button)`
+  margin: 20px auto 0px;
 `;

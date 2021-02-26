@@ -5,6 +5,8 @@ export const ControllerWrap: FC = ({ children }) => {
   return <StyledContainer>{children}</StyledContainer>;
 };
 const StyledContainer = styled.div`
+  display: flex;
+  flex-direction: column;
   flex: 1 1 25%;
   padding: 20px;
   background-color: #fff;

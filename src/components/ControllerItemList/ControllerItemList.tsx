@@ -1,5 +1,5 @@
-import { ControllerDataItems, ControllerDataType } from "api/getControllerData";
-import { OnControllerItem } from "hooks";
+import { ControllerDataItems, ControllerDataType } from "api/getController";
+import { ChangeControllerItem } from "hooks";
 import React, { FC } from "react";
 import styled from "styled-components";
 import { CheckboxData } from "./CheckboxData";
@@ -11,17 +11,17 @@ interface Props {
   type: ControllerDataType;
   items: ControllerDataItems[];
   controllerIndex: number;
-  onControllerItem(data: OnControllerItem): void;
+  changeControllerItem(data: ChangeControllerItem): void;
 }
 export const ControllerItemList: FC<Props> = ({
   controllerIndex,
   type,
   items,
-  onControllerItem,
+  changeControllerItem,
   ...props
 }) => {
   const onChange = (itemIndex: number, value: string | boolean) => {
-    onControllerItem({
+    changeControllerItem({
       controllerIndex,
       itemIndex,
       value,
@@ -65,4 +65,6 @@ export const ControllerItemList: FC<Props> = ({
     </StyledWrap>
   );
 };
-const StyledWrap = styled.div``;
+const StyledWrap = styled.div`
+  flex: 1;
+`;
