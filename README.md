@@ -53,7 +53,7 @@ or
 npm watch
 ```
 
-3. 플러그인에 사용하는 경우
+3. 플러그인에 배포하는 경우
 
 ```bash
 npm build
