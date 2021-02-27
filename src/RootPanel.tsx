@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import { PanelProps } from "@grafana/data";
-import { ControllerContainer } from "containers";
-import styled from "styled-components";
-import { ControllerAddModal, ModalButton } from "components/ControllerModal";
-import { useController } from "hooks";
+import React, { useState } from 'react';
+import { PanelProps } from '@grafana/data';
+import { ControllerContainer } from 'containers';
+import styled from 'styled-components';
+import { ControllerAddModal, ModalButton } from 'components/ControllerModal';
+import { useController } from 'hooks';
 
 interface Props extends PanelProps<any> {}
 

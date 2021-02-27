@@ -1,23 +1,17 @@
-import {
-  ControllerDataItems,
-  ControllerDataType,
-  ControllerItemType,
-} from "api";
-import randomstring from "randomstring";
+import { ControllerDataItems, ControllerDataType, ControllerItemType } from 'api';
+import randomstring from 'randomstring';
 
-export const generateControllerItem = (
-  type: ControllerDataType
-): ControllerDataItems => {
-  let defaultType: ControllerItemType = "input";
+export const generateControllerItem = (type: ControllerDataType): ControllerDataItems => {
+  let defaultType: ControllerItemType = 'input';
 
-  if (type !== "multiple") {
+  if (type !== 'multiple') {
     defaultType = type as ControllerItemType;
   }
 
   return {
     id: randomstring.generate(),
-    label: "",
+    label: '',
     type: defaultType,
-    value: defaultType === "input" ? "" : false,
+    value: defaultType === 'input' ? '' : false,
   };
 };

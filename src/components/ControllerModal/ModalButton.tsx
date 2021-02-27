@@ -1,13 +1,13 @@
-import { Button } from "antd";
-import React, { FC } from "react";
-import styled from "styled-components";
+import { Button } from 'antd';
+import React, { FC } from 'react';
+import styled from 'styled-components';
 
 interface Props {
   onModal(): void;
 }
 export const ModalButton: FC<Props> = ({ onModal }) => {
   return (
-    <StyledAddButton type='primary' onClick={() => onModal()}>
+    <StyledAddButton type="primary" onClick={() => onModal()}>
       컨트롤러 추가
     </StyledAddButton>
   );

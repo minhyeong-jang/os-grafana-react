@@ -1,6 +1,6 @@
-import { Radio } from "antd";
-import React, { FC } from "react";
-import styled from "styled-components";
+import { Radio } from 'antd';
+import React, { FC } from 'react';
+import styled from 'styled-components';
 
 interface Props {
   onChange(): void;
@@ -10,9 +10,9 @@ interface Props {
 export const RadioControl: FC<Props> = ({ value, onChange }) => {
   return (
     <Radio.Group onChange={onChange} value={value}>
-      <StyledRadio value={"name1"}>Option A</StyledRadio>
-      <StyledRadio value={"name2"}>Option B</StyledRadio>
-      <StyledRadio value={"name3"}>Option C</StyledRadio>
+      <StyledRadio value={'name1'}>Option A</StyledRadio>
+      <StyledRadio value={'name2'}>Option B</StyledRadio>
+      <StyledRadio value={'name3'}>Option C</StyledRadio>
     </Radio.Group>
   );
 };

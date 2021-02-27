@@ -1,6 +1,6 @@
-import React, { FC } from "react";
-import { Switch } from "antd";
-import { ControllerItemLabel, ControllerItemWrap } from "./ItemStyle";
+import React, { FC } from 'react';
+import { Switch } from 'antd';
+import { ControllerItemLabel, ControllerItemWrap } from './ItemStyle';
 
 interface Props {
   label: string;

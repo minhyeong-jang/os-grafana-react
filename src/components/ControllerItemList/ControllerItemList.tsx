@@ -1,11 +1,11 @@
-import { ControllerDataItems, ControllerDataType } from "api/getController";
-import { ChangeControllerItem, ChangeControllerRadioItem } from "hooks";
-import React, { FC } from "react";
-import styled from "styled-components";
-import { CheckboxData } from "./CheckboxData";
-import { InputData } from "./InputData";
-import { RadioData } from "./RadioData";
-import { SwitchData } from "./SwitchData";
+import { ControllerDataItems, ControllerDataType } from 'api/getController';
+import { ChangeControllerItem, ChangeControllerRadioItem } from 'hooks';
+import React, { FC } from 'react';
+import styled from 'styled-components';
+import { CheckboxData } from './CheckboxData';
+import { InputData } from './InputData';
+import { RadioData } from './RadioData';
+import { SwitchData } from './SwitchData';
 
 interface Props {
   type: ControllerDataType;
@@ -48,38 +48,22 @@ export const ControllerItemList: FC<Props> = ({
 
   return (
     <StyledWrap {...props}>
-      {type === "radio" ? (
-        <RadioData
-          items={items}
-          selectedId={selectedId}
-          onChange={(value) => onRadioChange(value)}
-        />
+      {type === 'radio' ? (
+        <RadioData items={items} selectedId={selectedId} onChange={value => onRadioChange(value)} />
       ) : (
         items.map((item, index) => {
           switch (item.type) {
-            case "switch":
+            case 'switch':
               return (
-                <SwitchData
-                  label={item.label}
-                  isChecked={!!item.value}
-                  onChange={(value) => onChange(index, value)}
-                />
+                <SwitchData label={item.label} isChecked={!!item.value} onChange={value => onChange(index, value)} />
               );
-            case "checkbox":
+            case 'checkbox':
               return (
-                <CheckboxData
-                  label={item.label}
-                  isChecked={!!item.value}
-                  onChange={(value) => onChange(index, value)}
-                />
+                <CheckboxData label={item.label} isChecked={!!item.value} onChange={value => onChange(index, value)} />
               );
-            case "input":
+            case 'input':
               return (
-                <InputData
-                  label={item.label}
-                  value={item.value as string}
-                  onChange={(value) => onChange(index, value)}
-                />
+                <InputData label={item.label} value={item.value as string} onChange={value => onChange(index, value)} />
               );
           }
         })

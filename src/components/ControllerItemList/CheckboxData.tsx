@@ -1,6 +1,6 @@
-import React, { FC } from "react";
-import { Checkbox, Switch } from "antd";
-import { ControllerItemLabel, ControllerItemWrap } from "./ItemStyle";
+import React, { FC } from 'react';
+import { Checkbox, Switch } from 'antd';
+import { ControllerItemLabel, ControllerItemWrap } from './ItemStyle';
 
 interface Props {
   label: string;
@@ -12,10 +12,7 @@ export const CheckboxData: FC<Props> = ({ label, onChange, isChecked }) => {
   return (
     <ControllerItemWrap>
       <ControllerItemLabel>{label} : </ControllerItemLabel>
-      <Checkbox
-        checked={isChecked}
-        onChange={(e) => onChange(e.target.checked)}
-      />
+      <Checkbox checked={isChecked} onChange={e => onChange(e.target.checked)} />
     </ControllerItemWrap>
   );
 };

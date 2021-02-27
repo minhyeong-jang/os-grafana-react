@@ -1,5 +1,5 @@
-import { baseApi } from "./env";
-import { ControllerDataItems } from "./getController";
+import { baseApi } from './env';
+import { ControllerDataItems } from './getController';
 
 export interface PutControllerParams {
   controllerId: string | number;

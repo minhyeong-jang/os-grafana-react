@@ -1,8 +1,8 @@
-import { Button, Input, Select } from "antd";
-import { ControllerDataItems, ControllerItemType } from "api";
-import React, { FC, memo } from "react";
-import styled from "styled-components";
-import { ModalItemWrap } from "./ModalStyle";
+import { Button, Input, Select } from 'antd';
+import { ControllerDataItems, ControllerItemType } from 'api';
+import React, { FC, memo } from 'react';
+import styled from 'styled-components';
+import { ModalItemWrap } from './ModalStyle';
 
 const { Option } = Select;
 
@@ -13,13 +13,7 @@ interface Props {
   changeType(id: string | number, value: ControllerItemType): void;
   changeLabel(id: string | number, value: string): void;
 }
-const ControllerMultipleTableComponent: FC<Props> = ({
-  items,
-  addItems,
-  removeItems,
-  changeType,
-  changeLabel,
-}) => {
+const ControllerMultipleTableComponent: FC<Props> = ({ items, addItems, removeItems, changeType, changeLabel }) => {
   return (
     <ModalItemWrap>
       <StyledUl>
@@ -32,24 +26,21 @@ const ControllerMultipleTableComponent: FC<Props> = ({
           <StyledLi key={index}>
             <StyledType>
               <Select
-                defaultValue='input'
-                style={{ width: "100px" }}
-                onChange={(value) => changeType(item.id, value)}
+                defaultValue="input"
+                style={{ width: '100px' }}
+                onChange={value => changeType(item.id, value)}
                 value={item.type}
               >
-                <Option value='input'>입력형</Option>
-                <Option value='checkbox'>체크형</Option>
-                <Option value='switch'>스위치형</Option>
+                <Option value="input">입력형</Option>
+                <Option value="checkbox">체크형</Option>
+                <Option value="switch">스위치형</Option>
               </Select>
             </StyledType>
             <StyledItem>
-              <Input
-                value={item.label}
-                onChange={(e) => changeLabel(item.id, e.target.value)}
-              />
+              <Input value={item.label} onChange={e => changeLabel(item.id, e.target.value)} />
             </StyledItem>
             <StyledAction>
-              <Button type='primary' onClick={() => removeItems(item.id)}>
+              <Button type="primary" onClick={() => removeItems(item.id)}>
                 Delete
               </Button>
             </StyledAction>
@@ -57,11 +48,7 @@ const ControllerMultipleTableComponent: FC<Props> = ({
         ))}
         <StyledLi>
           <StyledItem>
-            <Button
-              type='primary'
-              style={{ width: "100%" }}
-              onClick={() => addItems()}
-            >
+            <Button type="primary" style={{ width: '100%' }} onClick={() => addItems()}>
               Add Item
             </Button>
           </StyledItem>

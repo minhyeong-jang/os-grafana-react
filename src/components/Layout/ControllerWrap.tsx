@@ -1,5 +1,5 @@
-import React, { FC } from "react";
-import styled from "styled-components";
+import React, { FC } from 'react';
+import styled from 'styled-components';
 
 export const ControllerWrap: FC = ({ children }) => {
   return <StyledContainer>{children}</StyledContainer>;

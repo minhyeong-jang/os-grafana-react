@@ -1,10 +1,10 @@
-import { Button } from "antd";
-import { ControllerData } from "api/getController";
-import { ControllerItemList } from "components/ControllerItemList";
-import { ControllerTitle, ControllerWrap } from "components/Layout";
-import { ChangeControllerItem, ChangeControllerRadioItem } from "hooks";
-import React, { FC, useEffect, useRef, useState } from "react";
-import styled from "styled-components";
+import { Button } from 'antd';
+import { ControllerData } from 'api/getController';
+import { ControllerItemList } from 'components/ControllerItemList';
+import { ControllerTitle, ControllerWrap } from 'components/Layout';
+import { ChangeControllerItem, ChangeControllerRadioItem } from 'hooks';
+import React, { FC, useEffect, useRef, useState } from 'react';
+import styled from 'styled-components';
 
 interface Props {
   data: ControllerData[];
@@ -35,10 +35,10 @@ export const ControllerContainer: FC<Props> = ({
 
   useEffect(() => {
     columnResize();
-    window.addEventListener("resize", columnResize);
+    window.addEventListener('resize', columnResize);
 
     return () => {
-      window.removeEventListener("resize", columnResize);
+      window.removeEventListener('resize', columnResize);
     };
   }, [divRef]);
 
@@ -55,10 +55,7 @@ export const ControllerContainer: FC<Props> = ({
             changeControllerRadioItem={changeControllerRadioItem}
             changeControllerItem={changeControllerItem}
           />
-          <StyledApplyButton
-            type='primary'
-            onClick={() => updateController(index)}
-          >
+          <StyledApplyButton type="primary" onClick={() => updateController(index)}>
             업데이트
           </StyledApplyButton>
         </ControllerWrap>

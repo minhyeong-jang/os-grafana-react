@@ -1,7 +1,7 @@
-import React, { FC } from "react";
-import styled from "styled-components";
-import { Input } from "antd";
-import { ControllerItemLabel, ControllerItemWrap } from "./ItemStyle";
+import React, { FC } from 'react';
+import styled from 'styled-components';
+import { Input } from 'antd';
+import { ControllerItemLabel, ControllerItemWrap } from './ItemStyle';
 
 interface Props {
   label: string;
@@ -13,7 +13,7 @@ export const InputData: FC<Props> = ({ label, onChange, value }) => {
   return (
     <ControllerItemWrap>
       <ControllerItemLabel>{label} : </ControllerItemLabel>
-      <StyledInput value={value} onChange={(e) => onChange(e.target.value)} />
+      <StyledInput value={value} onChange={e => onChange(e.target.value)} />
     </ControllerItemWrap>
   );
 };

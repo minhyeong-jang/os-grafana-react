@@ -1,31 +1,23 @@
-import { Modal, Radio } from "antd";
-import {
-  ControllerDataItems,
-  ControllerDataType,
-  ControllerItemType,
-} from "api";
-import React, { FC, useEffect, useState } from "react";
-import styled from "styled-components";
-import { ControllerTitle } from "./ControllerTitle";
-import { ControllerType } from "./ControllerType";
-import { ControllerMultipleTable } from "./ControllerMultipleTable";
-import { ControllerDefaultTable } from "./ControllerDefaultTable";
-import { generateControllerItem } from "utils";
-import { AddController } from "hooks";
-import { ControllerItemList } from "components/ControllerItemList";
+import { Modal, Radio } from 'antd';
+import { ControllerDataItems, ControllerDataType, ControllerItemType } from 'api';
+import React, { FC, useEffect, useState } from 'react';
+import styled from 'styled-components';
+import { ControllerTitle } from './ControllerTitle';
+import { ControllerType } from './ControllerType';
+import { ControllerMultipleTable } from './ControllerMultipleTable';
+import { ControllerDefaultTable } from './ControllerDefaultTable';
+import { generateControllerItem } from 'utils';
+import { AddController } from 'hooks';
+import { ControllerItemList } from 'components/ControllerItemList';
 
 interface Props {
   isModalVisible: boolean;
   addController(data: AddController): Promise<boolean>;
   handleClosed(): void;
 }
-export const ControllerAddModal: FC<Props> = ({
-  isModalVisible,
-  addController,
-  handleClosed,
-}) => {
-  const [title, setTitle] = useState("");
-  const [type, setType] = useState<ControllerDataType>("input");
+export const ControllerAddModal: FC<Props> = ({ isModalVisible, addController, handleClosed }) => {
+  const [title, setTitle] = useState('');
+  const [type, setType] = useState<ControllerDataType>('input');
   const [items, setItems] = useState<ControllerDataItems[]>([]);
 
   useEffect(() => {
@@ -39,23 +31,21 @@ export const ControllerAddModal: FC<Props> = ({
     }
   };
   const addItems = () => {
-    setItems((prevState) => [...prevState, generateControllerItem(type)]);
+    setItems(prevState => [...prevState, generateControllerItem(type)]);
   };
   const removeItems = (id: string | number) => {
-    setItems(items.filter((item) => item.id !== id));
+    setItems(items.filter(item => item.id !== id));
   };
   const changeLabel = (id: string | number, value: string) => {
-    const updateItems = items.map((item) =>
-      item.id === id ? Object.assign({}, item, { label: value }) : item
-    );
+    const updateItems = items.map(item => (item.id === id ? Object.assign({}, item, { label: value }) : item));
     setItems(updateItems);
   };
   const changeType = (id: string | number, type: ControllerItemType) => {
-    const updateItems = items.map((item) =>
+    const updateItems = items.map(item =>
       item.id === id
         ? Object.assign({}, item, {
             type,
-            value: type === "input" ? "" : false,
+            value: type === 'input' ? '' : false,
           })
         : item
     );
@@ -63,16 +53,11 @@ export const ControllerAddModal: FC<Props> = ({
   };
 
   return (
-    <Modal
-      title='컨트롤러 추가'
-      visible={isModalVisible}
-      onOk={() => onOk()}
-      onCancel={() => handleClosed()}
-    >
+    <Modal title="컨트롤러 추가" visible={isModalVisible} onOk={() => onOk()} onCancel={() => handleClosed()}>
       <StyledModalWrap>
         <ControllerTitle title={title} onChange={setTitle} />
         <ControllerType value={type} onChange={setType} />
-        {type === "multiple" ? (
+        {type === 'multiple' ? (
           <ControllerMultipleTable
             items={items}
             addItems={addItems}

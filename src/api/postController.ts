@@ -1,5 +1,5 @@
-import { baseApi } from "./env";
-import { ControllerData } from "./getController";
+import { baseApi } from './env';
+import { ControllerData } from './getController';
 
 export interface PostControllerParams extends ControllerData {}
 export interface PostControllerResponse {}

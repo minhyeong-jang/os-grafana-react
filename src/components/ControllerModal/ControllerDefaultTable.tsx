@@ -1,8 +1,8 @@
-import { Button, Input } from "antd";
-import { ControllerDataItems } from "api";
-import React, { FC, memo } from "react";
-import styled from "styled-components";
-import { ModalItemWrap } from "./ModalStyle";
+import { Button, Input } from 'antd';
+import { ControllerDataItems } from 'api';
+import React, { FC, memo } from 'react';
+import styled from 'styled-components';
+import { ModalItemWrap } from './ModalStyle';
 
 interface Props {
   items: ControllerDataItems[];
@@ -10,12 +10,7 @@ interface Props {
   removeItems(id: string | number): void;
   changeLabel(id: string | number, value: string): void;
 }
-const ControllerDefaultTableComponent: FC<Props> = ({
-  items,
-  addItems,
-  removeItems,
-  changeLabel,
-}) => {
+const ControllerDefaultTableComponent: FC<Props> = ({ items, addItems, removeItems, changeLabel }) => {
   return (
     <ModalItemWrap>
       <StyledUl>
@@ -26,13 +21,10 @@ const ControllerDefaultTableComponent: FC<Props> = ({
         {items.map((item, index) => (
           <StyledLi key={index}>
             <StyledItem>
-              <Input
-                value={item.label}
-                onChange={(e) => changeLabel(item.id, e.target.value)}
-              />
+              <Input value={item.label} onChange={e => changeLabel(item.id, e.target.value)} />
             </StyledItem>
             <StyledAction>
-              <Button type='primary' onClick={() => removeItems(item.id)}>
+              <Button type="primary" onClick={() => removeItems(item.id)}>
                 Delete
               </Button>
             </StyledAction>
@@ -40,11 +32,7 @@ const ControllerDefaultTableComponent: FC<Props> = ({
         ))}
         <StyledLi>
           <StyledItem>
-            <Button
-              type='primary'
-              style={{ width: "100%" }}
-              onClick={() => addItems()}
-            >
+            <Button type="primary" style={{ width: '100%' }} onClick={() => addItems()}>
               Add Item
             </Button>
           </StyledItem>
