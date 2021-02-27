@@ -13,7 +13,12 @@ const ControllerTypeComponent: FC<Props> = ({ value, onChange }) => {
   return (
     <ModalItemWrap>
       <ModalItemLabel>컨트롤러 타입 :</ModalItemLabel>
-      <Select defaultValue="input" style={{ width: '100px' }} onChange={onChange} value={value}>
+      <Select
+        defaultValue="input"
+        style={{ width: '100px' }}
+        onChange={onChange}
+        value={value}
+      >
         <Option value="input">입력형</Option>
         <Option value="radio">선택형</Option>
         <Option value="checkbox">체크형</Option>

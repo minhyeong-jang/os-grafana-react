@@ -25,46 +25,60 @@ export const ControllerItemList: FC<Props> = ({
   ...props
 }) => {
   const onChange = (itemIndex: number, value: string | boolean) => {
-    if (!controllerIndex || !changeControllerItem) {
-      return null;
+    if (controllerIndex && changeControllerItem) {
+      changeControllerItem({
+        controllerIndex,
+        itemIndex,
+        value,
+      });
     }
-
-    changeControllerItem({
-      controllerIndex,
-      itemIndex,
-      value,
-    });
   };
   const onRadioChange = (value: string) => {
-    if (!controllerIndex || !changeControllerRadioItem) {
-      return null;
+    if (controllerIndex && changeControllerRadioItem) {
+      changeControllerRadioItem({
+        controllerIndex,
+        value,
+      });
     }
-
-    changeControllerRadioItem({
-      controllerIndex,
-      value,
-    });
   };
 
   return (
     <StyledWrap {...props}>
       {type === 'radio' ? (
-        <RadioData items={items} selectedId={selectedId} onChange={value => onRadioChange(value)} />
+        <RadioData
+          items={items}
+          selectedId={selectedId}
+          onChange={value => onRadioChange(value)}
+        />
       ) : (
         items.map((item, index) => {
           switch (item.type) {
             case 'switch':
               return (
-                <SwitchData label={item.label} isChecked={!!item.value} onChange={value => onChange(index, value)} />
+                <SwitchData
+                  label={item.label}
+                  isChecked={!!item.value}
+                  onChange={value => onChange(index, value)}
+                />
               );
             case 'checkbox':
               return (
-                <CheckboxData label={item.label} isChecked={!!item.value} onChange={value => onChange(index, value)} />
+                <CheckboxData
+                  label={item.label}
+                  isChecked={!!item.value}
+                  onChange={value => onChange(index, value)}
+                />
               );
             case 'input':
               return (
-                <InputData label={item.label} value={item.value as string} onChange={value => onChange(index, value)} />
+                <InputData
+                  label={item.label}
+                  value={item.value as string}
+                  onChange={value => onChange(index, value)}
+                />
               );
+            default:
+              return null;
           }
         })
       )}

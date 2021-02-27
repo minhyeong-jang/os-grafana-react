@@ -55,7 +55,10 @@ export const ControllerContainer: FC<Props> = ({
             changeControllerRadioItem={changeControllerRadioItem}
             changeControllerItem={changeControllerItem}
           />
-          <StyledApplyButton type="primary" onClick={() => updateController(index)}>
+          <StyledApplyButton
+            type="primary"
+            onClick={() => updateController(index)}
+          >
             업데이트
           </StyledApplyButton>
         </ControllerWrap>

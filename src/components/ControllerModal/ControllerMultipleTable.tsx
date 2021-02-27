@@ -13,7 +13,13 @@ interface Props {
   changeType(id: string | number, value: ControllerItemType): void;
   changeLabel(id: string | number, value: string): void;
 }
-const ControllerMultipleTableComponent: FC<Props> = ({ items, addItems, removeItems, changeType, changeLabel }) => {
+const ControllerMultipleTableComponent: FC<Props> = ({
+  items,
+  addItems,
+  removeItems,
+  changeType,
+  changeLabel,
+}) => {
   return (
     <ModalItemWrap>
       <StyledUl>
@@ -37,7 +43,10 @@ const ControllerMultipleTableComponent: FC<Props> = ({ items, addItems, removeIt
               </Select>
             </StyledType>
             <StyledItem>
-              <Input value={item.label} onChange={e => changeLabel(item.id, e.target.value)} />
+              <Input
+                value={item.label}
+                onChange={e => changeLabel(item.id, e.target.value)}
+              />
             </StyledItem>
             <StyledAction>
               <Button type="primary" onClick={() => removeItems(item.id)}>
@@ -48,7 +57,11 @@ const ControllerMultipleTableComponent: FC<Props> = ({ items, addItems, removeIt
         ))}
         <StyledLi>
           <StyledItem>
-            <Button type="primary" style={{ width: '100%' }} onClick={() => addItems()}>
+            <Button
+              type="primary"
+              style={{ width: '100%' }}
+              onClick={() => addItems()}
+            >
               Add Item
             </Button>
           </StyledItem>

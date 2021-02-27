@@ -16,7 +16,12 @@ export interface ControllerDataItems {
   label: string;
   value: boolean | string;
 }
-export type ControllerDataType = 'switch' | 'radio' | 'input' | 'checkbox' | 'multiple';
+export type ControllerDataType =
+  | 'switch'
+  | 'radio'
+  | 'input'
+  | 'checkbox'
+  | 'multiple';
 export type ControllerItemType = 'switch' | 'radio' | 'input' | 'checkbox';
 
 export const getController = (url: string) => {

@@ -1,5 +1,9 @@
-import { Modal, Radio } from 'antd';
-import { ControllerDataItems, ControllerDataType, ControllerItemType } from 'api';
+import { Modal } from 'antd';
+import {
+  ControllerDataItems,
+  ControllerDataType,
+  ControllerItemType,
+} from 'api';
 import React, { FC, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { ControllerTitle } from './ControllerTitle';
@@ -15,7 +19,11 @@ interface Props {
   addController(data: AddController): Promise<boolean>;
   handleClosed(): void;
 }
-export const ControllerAddModal: FC<Props> = ({ isModalVisible, addController, handleClosed }) => {
+export const ControllerAddModal: FC<Props> = ({
+  isModalVisible,
+  addController,
+  handleClosed,
+}) => {
   const [title, setTitle] = useState('');
   const [type, setType] = useState<ControllerDataType>('input');
   const [items, setItems] = useState<ControllerDataItems[]>([]);
@@ -37,7 +45,9 @@ export const ControllerAddModal: FC<Props> = ({ isModalVisible, addController, h
     setItems(items.filter(item => item.id !== id));
   };
   const changeLabel = (id: string | number, value: string) => {
-    const updateItems = items.map(item => (item.id === id ? Object.assign({}, item, { label: value }) : item));
+    const updateItems = items.map(item =>
+      item.id === id ? Object.assign({}, item, { label: value }) : item,
+    );
     setItems(updateItems);
   };
   const changeType = (id: string | number, type: ControllerItemType) => {
@@ -47,13 +57,18 @@ export const ControllerAddModal: FC<Props> = ({ isModalVisible, addController, h
             type,
             value: type === 'input' ? '' : false,
           })
-        : item
+        : item,
     );
     setItems(updateItems);
   };
 
   return (
-    <Modal title="컨트롤러 추가" visible={isModalVisible} onOk={() => onOk()} onCancel={() => handleClosed()}>
+    <Modal
+      title="컨트롤러 추가"
+      visible={isModalVisible}
+      onOk={() => onOk()}
+      onCancel={() => handleClosed()}
+    >
       <StyledModalWrap>
         <ControllerTitle title={title} onChange={setTitle} />
         <ControllerType value={type} onChange={setType} />

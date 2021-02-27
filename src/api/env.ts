@@ -1,6 +1,11 @@
 import axios, { AxiosError, AxiosResponse } from 'axios';
 
-export type MarshalableType = boolean | string | string[] | Record<string, any> | Array<Record<string, any>>;
+export type MarshalableType =
+  | boolean
+  | string
+  | string[]
+  | Record<string, any>
+  | Array<Record<string, any>>;
 
 /**
  * API Url 정의
@@ -23,9 +28,12 @@ const axiosErrorResToData = (err: AxiosError) => {
     error = getError(err.message);
   } else {
     error = getError(
-      res.data?.error?.message ?? res.data?.message ?? res.data?.msg ?? res.statusText,
+      res.data?.error?.message ??
+        res.data?.message ??
+        res.data?.msg ??
+        res.statusText,
       res.status,
-      res.data?.code
+      res.data?.code,
     );
   }
 
@@ -45,7 +53,10 @@ export const baseApi = {
       return Promise.reject(error);
     }
   },
-  get<T = MarshalableType, P = Record<string, any> | void>(url: string, params?: P): Promise<T> {
+  get<T = MarshalableType, P = Record<string, any> | void>(
+    url: string,
+    params?: P,
+  ): Promise<T> {
     try {
       return axios
         .get<T>(`${url}`, {

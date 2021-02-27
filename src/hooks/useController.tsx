@@ -141,14 +141,21 @@ export const useController = (serverUrl: string) => {
     }
   };
 
-  const changeControllerRadioItem = async ({ controllerIndex, value }: ChangeControllerRadioItem) => {
+  const changeControllerRadioItem = async ({
+    controllerIndex,
+    value,
+  }: ChangeControllerRadioItem) => {
     const newData = controllerData.slice();
     newData[controllerIndex].selectedId = value;
 
     setControllerData(newData);
   };
 
-  const changeControllerItem = async ({ controllerIndex, itemIndex, value }: ChangeControllerItem) => {
+  const changeControllerItem = async ({
+    controllerIndex,
+    itemIndex,
+    value,
+  }: ChangeControllerItem) => {
     const newData = controllerData.slice();
     newData[controllerIndex].items[itemIndex].value = value;
 

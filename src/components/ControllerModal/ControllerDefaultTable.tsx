@@ -10,7 +10,12 @@ interface Props {
   removeItems(id: string | number): void;
   changeLabel(id: string | number, value: string): void;
 }
-const ControllerDefaultTableComponent: FC<Props> = ({ items, addItems, removeItems, changeLabel }) => {
+const ControllerDefaultTableComponent: FC<Props> = ({
+  items,
+  addItems,
+  removeItems,
+  changeLabel,
+}) => {
   return (
     <ModalItemWrap>
       <StyledUl>
@@ -21,7 +26,10 @@ const ControllerDefaultTableComponent: FC<Props> = ({ items, addItems, removeIte
         {items.map((item, index) => (
           <StyledLi key={index}>
             <StyledItem>
-              <Input value={item.label} onChange={e => changeLabel(item.id, e.target.value)} />
+              <Input
+                value={item.label}
+                onChange={e => changeLabel(item.id, e.target.value)}
+              />
             </StyledItem>
             <StyledAction>
               <Button type="primary" onClick={() => removeItems(item.id)}>
@@ -32,7 +40,11 @@ const ControllerDefaultTableComponent: FC<Props> = ({ items, addItems, removeIte
         ))}
         <StyledLi>
           <StyledItem>
-            <Button type="primary" style={{ width: '100%' }} onClick={() => addItems()}>
+            <Button
+              type="primary"
+              style={{ width: '100%' }}
+              onClick={() => addItems()}
+            >
               Add Item
             </Button>
           </StyledItem>
