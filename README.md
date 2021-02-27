@@ -81,13 +81,13 @@ npm build
 ### 컨트롤러 타입
 
 ```ts
-type ControllerType = "switch" | "radio" | "input" | "checkbox" | "multiple";
+type ControllerType = 'switch' | 'radio' | 'input' | 'checkbox' | 'multiple';
 ```
 
 ### 컨트롤러 데이터 타입
 
 ```ts
-type ControllerItemType = "switch" | "radio" | "input" | "checkbox";
+type ControllerItemType = 'switch' | 'radio' | 'input' | 'checkbox';
 ```
 
 ### getController Response
