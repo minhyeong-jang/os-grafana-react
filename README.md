@@ -8,7 +8,7 @@ Grafana를 사용한 react 프로젝트
 node >= 14.0
 ```
 
-## 초기 설정
+## Grafana 설치
 
 [Grafana 설치 가이드 문서](https://grafana.com/docs/grafana/latest/installation/requirements/)  
 Ubuntu, Docker 등 OS 별 설치방법 문서가 존재합니다.
@@ -20,9 +20,11 @@ brew update
 brew install grafana
 ```
 
-### grafana plugin ini 설정 ( macOS )
+## Grafana 개발환경 셋팅
 
-grafana 소스 path를 연결합니다.
+### grafana ini 설정 ( macOS )
+
+grafana 설정파일에서 plugin path를 연결합니다.
 
 ```bash
 vim /usr/local/etc/grafana/grafana.ini
@@ -31,7 +33,7 @@ vim /usr/local/etc/grafana/grafana.ini
 plugins = /Users/react/Documents/github/private/os-grafana-react
 ```
 
-## 시작하기
+### react start
 
 0. grafana 실행 ( macOS )
 
@@ -42,22 +44,46 @@ brew services start grafana
 1. 설치
 
 ```bash
-npm install
+yarn install
 ```
 
 2. 개발하는 경우
 
 ```bash
-npm dev
+yarn dev
 or
-npm watch
+yarn watch
 ```
 
 3. 플러그인에 배포하는 경우
 
 ```bash
-npm build
+yarn build
 ```
+
+## grafana 플러그인 설치
+
+grafana-cli를 사용하여 플러그인을 설치합니다.
+
+플러그인에서 자동으로 빌드해주지 않아, 설치 후 build 작업 진행이 필요합니다.
+
+```bash
+grafana-cli --pluginUrl https://github.com/minhyeong-jang/os-grafana-react/archive/main.zip plugins install grafana-react
+...
+...
+into: /usr/local/var/lib/grafana/plugins
+```
+
+설치된 경로/grafana-react로 이동하여 package를 설치합니다.
+
+```bash
+cd /usr/local/var/lib/grafana/plugins/grafana-react
+yarn && yarn build
+```
+
+설치완료 후 서비스를 재시작합니다.
+
+
 
 ## 플러그인 사용하기
 
@@ -104,6 +130,7 @@ interface ControllerData {
   title: string;
   type: ControllerDataType;
   items: ControllerDataItems[];
+  selectedId: string | number | null;
 }
 interface ControllerDataItems {
   id: string | number;
@@ -122,6 +149,7 @@ items는 get method 형식과 동일합니다.
 interface PutControllerParams {
   controllerId: string | number;
   items: ControllerDataItems[];
+  selectedId: string | number | null;
 }
 ```
 
