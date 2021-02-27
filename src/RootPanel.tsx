@@ -12,6 +12,7 @@ export const RootPanel: React.FC<Props> = ({ options }) => {
     controllerData,
     addController,
     changeControllerItem,
+    changeControllerRadioItem,
     updateController,
   } = useController(options.text);
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -22,6 +23,7 @@ export const RootPanel: React.FC<Props> = ({ options }) => {
       <ControllerContainer
         data={controllerData}
         changeControllerItem={changeControllerItem}
+        changeControllerRadioItem={changeControllerRadioItem}
         updateController={updateController}
       />
       {isModalVisible && (

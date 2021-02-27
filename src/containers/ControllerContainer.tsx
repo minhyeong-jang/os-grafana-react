@@ -2,7 +2,7 @@ import { Button } from "antd";
 import { ControllerData } from "api/getController";
 import { ControllerItemList } from "components/ControllerItemList";
 import { ControllerTitle, ControllerWrap } from "components/Layout";
-import { ChangeControllerItem } from "hooks";
+import { ChangeControllerItem, ChangeControllerRadioItem } from "hooks";
 import React, { FC, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
@@ -10,11 +10,13 @@ interface Props {
   data: ControllerData[];
   updateController(index: number): void;
   changeControllerItem(data: ChangeControllerItem): void;
+  changeControllerRadioItem(data: ChangeControllerRadioItem): void;
 }
 export const ControllerContainer: FC<Props> = ({
   data,
   updateController,
   changeControllerItem,
+  changeControllerRadioItem,
 }) => {
   const [columns, setColumns] = useState(4);
   const divRef = useRef<HTMLDivElement>(null);
@@ -34,6 +36,7 @@ export const ControllerContainer: FC<Props> = ({
   useEffect(() => {
     columnResize();
     window.addEventListener("resize", columnResize);
+
     return () => {
       window.removeEventListener("resize", columnResize);
     };
@@ -46,8 +49,10 @@ export const ControllerContainer: FC<Props> = ({
           <ControllerTitle>{controller.title}</ControllerTitle>
           <ControllerItemList
             controllerIndex={index}
+            selectedId={controller.selectedId}
             type={controller.type}
             items={controller.items}
+            changeControllerRadioItem={changeControllerRadioItem}
             changeControllerItem={changeControllerItem}
           />
           <StyledApplyButton

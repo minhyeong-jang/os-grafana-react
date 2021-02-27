@@ -16,7 +16,7 @@ import { ControllerItemList } from "components/ControllerItemList";
 
 interface Props {
   isModalVisible: boolean;
-  addController(data: AddController): boolean;
+  addController(data: AddController): Promise<boolean>;
   handleClosed(): void;
 }
 export const ControllerAddModal: FC<Props> = ({
@@ -90,12 +90,7 @@ export const ControllerAddModal: FC<Props> = ({
         )}
       </StyledModalWrap>
       <StyledPreviewTitle>미리보기</StyledPreviewTitle>
-      <StyledControllerItemList
-        type={type}
-        items={items}
-        controllerIndex={0}
-        onControllerItem={() => {}}
-      />
+      <StyledControllerItemList type={type} items={items} />
     </Modal>
   );
 };

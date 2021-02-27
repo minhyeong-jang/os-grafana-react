@@ -4,6 +4,7 @@ import { ControllerDataItems } from "./getController";
 export interface PutControllerParams {
   controllerId: string | number;
   items: ControllerDataItems[];
+  selectedId: string | number | null;
 }
 export interface PutControllerResponse {}
 

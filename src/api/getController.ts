@@ -8,6 +8,7 @@ export interface ControllerData {
   title: string;
   type: ControllerDataType;
   items: ControllerDataItems[];
+  selectedId?: string | number | null;
 }
 export interface ControllerDataItems {
   id: string | number;

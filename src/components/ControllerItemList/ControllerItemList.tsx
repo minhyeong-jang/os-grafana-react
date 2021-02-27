@@ -1,5 +1,5 @@
 import { ControllerDataItems, ControllerDataType } from "api/getController";
-import { ChangeControllerItem } from "hooks";
+import { ChangeControllerItem, ChangeControllerRadioItem } from "hooks";
 import React, { FC } from "react";
 import styled from "styled-components";
 import { CheckboxData } from "./CheckboxData";
@@ -9,21 +9,39 @@ import { SwitchData } from "./SwitchData";
 
 interface Props {
   type: ControllerDataType;
+  selectedId?: string | number | null;
   items: ControllerDataItems[];
-  controllerIndex: number;
-  changeControllerItem(data: ChangeControllerItem): void;
+  controllerIndex?: number;
+  changeControllerRadioItem?(data: ChangeControllerRadioItem): void;
+  changeControllerItem?(data: ChangeControllerItem): void;
 }
 export const ControllerItemList: FC<Props> = ({
   controllerIndex,
   type,
   items,
+  selectedId,
+  changeControllerRadioItem,
   changeControllerItem,
   ...props
 }) => {
   const onChange = (itemIndex: number, value: string | boolean) => {
+    if (!controllerIndex || !changeControllerItem) {
+      return null;
+    }
+
     changeControllerItem({
       controllerIndex,
       itemIndex,
+      value,
+    });
+  };
+  const onRadioChange = (value: string) => {
+    if (!controllerIndex || !changeControllerRadioItem) {
+      return null;
+    }
+
+    changeControllerRadioItem({
+      controllerIndex,
       value,
     });
   };
@@ -31,7 +49,11 @@ export const ControllerItemList: FC<Props> = ({
   return (
     <StyledWrap {...props}>
       {type === "radio" ? (
-        <RadioData items={items} onChange={() => {}} />
+        <RadioData
+          items={items}
+          selectedId={selectedId}
+          onChange={(value) => onRadioChange(value)}
+        />
       ) : (
         items.map((item, index) => {
           switch (item.type) {

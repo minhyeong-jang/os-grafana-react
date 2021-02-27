@@ -4,6 +4,7 @@ import {
   ControllerData,
   ControllerDataType,
   ControllerDataItems,
+  postController,
 } from "api";
 import { useEffect, useState } from "react";
 import randomstring from "randomstring";
@@ -18,6 +19,10 @@ export interface ChangeControllerItem {
   itemIndex: number;
   value: string | boolean;
 }
+export interface ChangeControllerRadioItem {
+  controllerIndex: number;
+  value: string | number;
+}
 
 export const useController = (serverUrl: string) => {
   const [controllerData, setControllerData] = useState<ControllerData[]>([
@@ -25,6 +30,7 @@ export const useController = (serverUrl: string) => {
       id: "jhYkvDew5Y9Okx85x9TGQsqaAvG8s2eW",
       type: "input",
       title: "입력형",
+      selectedId: null,
       items: [
         {
           id: "uTn3QbAMgl36E6Lvf2JxchmOo9pgkuYp",
@@ -72,71 +78,10 @@ export const useController = (serverUrl: string) => {
       ],
     },
     {
-      id: "moOZSnQczM8DOef1IsPw0f8NcyVSP3S0",
-      type: "switch",
-      title: "스위치형",
-      items: [
-        {
-          id: "z2RHTNiWeAJLs8Dfe1Ggql0Gw7nqpF0o",
-          label: "스위치 1",
-          type: "switch",
-          value: false,
-        },
-        {
-          id: "EjHxBvFWFj6MubDfSZT2dTIuz2x4Uhgy",
-          label: "스위치 2",
-          type: "switch",
-          value: false,
-        },
-        {
-          id: "Lw4vEvd7HT1kEl4fu4Z1RqQVzMTysMDG",
-          label: "스위치 3",
-          type: "switch",
-          value: false,
-        },
-        {
-          id: "oSJwKXYmD8cStY7X1treeSCqSqjRTcm0",
-          label: "스위치 4",
-          type: "switch",
-          value: false,
-        },
-      ],
-    },
-    {
-      id: "wGJAbbwkSd0K7qv5DWE0Y2ghhat9OHbJ",
-      type: "checkbox",
-      title: "체크박스형",
-      items: [
-        {
-          id: "iCttd5ga1TOuLmdCgpCVt2K3eq5b9uc4",
-          label: "체크박스 1",
-          type: "checkbox",
-          value: false,
-        },
-        {
-          id: "H1O2Q8xZRkLj0U1xetMwKfOXUabYICAX",
-          label: "체크박스 2",
-          type: "checkbox",
-          value: false,
-        },
-        {
-          id: "hbnHovbmgkL6yalZJpaWLkc5jHpmScMs",
-          label: "체크박스 3",
-          type: "checkbox",
-          value: false,
-        },
-        {
-          id: "IJ7MIhwZKRJFHROfDwHIzr0Mw5obdPAT",
-          label: "체크박스 44444",
-          type: "checkbox",
-          value: false,
-        },
-      ],
-    },
-    {
       id: "xiecHphdmUaIYz0IwSE8pQicXfwW6nPu",
       type: "multiple",
       title: "복합형",
+      selectedId: null,
       items: [
         {
           id: "Er6rriYbF6PQTrOepC9A3Wd84T66NQhU",
@@ -166,7 +111,7 @@ export const useController = (serverUrl: string) => {
     },
   ]);
 
-  const addController = ({ title, type, items }: AddController): boolean => {
+  const addController = async ({ title, type, items }: AddController) => {
     if (!title) {
       alert("타이틀을 입력해주세요.");
       return false;
@@ -176,14 +121,33 @@ export const useController = (serverUrl: string) => {
       return false;
     }
 
-    const data: ControllerData = {
-      id: randomstring.generate(),
-      type,
-      title,
-      items,
-    };
-    setControllerData((prevState) => [...prevState, data]);
-    return true;
+    try {
+      const data: ControllerData = {
+        id: randomstring.generate(),
+        type,
+        title,
+        selectedId: type === "radio" ? items[0].id : null,
+        items,
+      };
+      setControllerData((prevState) => [...prevState, data]);
+
+      await postController(serverUrl, data);
+
+      return true;
+    } catch (e) {
+      alert(e);
+      return true;
+    }
+  };
+
+  const changeControllerRadioItem = async ({
+    controllerIndex,
+    value,
+  }: ChangeControllerRadioItem) => {
+    const newData = controllerData.slice();
+    newData[controllerIndex].selectedId = value;
+
+    setControllerData(newData);
   };
 
   const changeControllerItem = async ({
@@ -201,6 +165,7 @@ export const useController = (serverUrl: string) => {
     const target = controllerData[index];
     await putController(serverUrl, {
       controllerId: target.id,
+      selectedId: target.selectedId,
       items: target.items,
     });
   };
@@ -221,6 +186,7 @@ export const useController = (serverUrl: string) => {
     controllerData,
     addController,
     changeControllerItem,
+    changeControllerRadioItem,
     updateController,
   };
 };

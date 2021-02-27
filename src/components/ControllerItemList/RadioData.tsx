@@ -6,16 +6,17 @@ import { ControllerDataItems } from "api";
 
 interface Props {
   items: ControllerDataItems[];
-  onChange(): void;
+  selectedId?: string | number | null;
+  onChange(value: string): void;
 }
 
-export const RadioData: FC<Props> = ({ items, onChange }) => {
+export const RadioData: FC<Props> = ({ items, selectedId, onChange }) => {
   return (
-    <Radio.Group onChange={(e) => onChange()} value={""}>
+    <Radio.Group onChange={(e) => onChange(e.target.value)} value={selectedId}>
       {items.map((item, index) => (
         <ControllerItemWrap key={index}>
           <ControllerItemLabel>{item.label} : </ControllerItemLabel>
-          <StyledRadio value={item.value} />
+          <StyledRadio value={item.id} />
         </ControllerItemWrap>
       ))}
     </Radio.Group>
