@@ -69,16 +69,6 @@ grafana-cli를 사용하여 플러그인을 설치합니다.
 
 ```bash
 grafana-cli --pluginUrl https://github.com/minhyeong-jang/os-grafana-react/archive/main.zip plugins install grafana-react
-...
-...
-into: /usr/local/var/lib/grafana/plugins
-```
-
-설치된 경로/grafana-react로 이동하여 package를 설치합니다.
-
-```bash
-cd /usr/local/var/lib/grafana/plugins/grafana-react
-yarn && yarn build
 ```
 
 설치완료 후 서비스를 재시작합니다.
