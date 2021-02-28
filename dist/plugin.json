@@ -1,0 +1,25 @@
+{
+  "$schema": "https://raw.githubusercontent.com/grafana/grafana/master/docs/sources/developers/plugins/plugin.schema.json",
+  "type": "panel",
+  "name": "grafana-react",
+  "id": "grafana-react",
+  "info": {
+    "description": "",
+    "author": {
+      "name": "Minhyeong Jang",
+      "url": ""
+    },
+    "keywords": ["grafana-react"],
+    "logos": {
+      "small": "img/logo.svg",
+      "large": "img/logo.svg"
+    },
+    "screenshots": [],
+    "version": "1.0.0",
+    "updated": "2021-02-27"
+  },
+  "dependencies": {
+    "grafanaDependency": ">=7.0.0",
+    "plugins": []
+  }
+}
