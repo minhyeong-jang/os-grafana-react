@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { PanelProps } from '@grafana/data';
 import { ControllerContainer } from 'containers';
-import styled from 'styled-components';
+import styled, { ThemeProvider } from 'styled-components';
 import { ControllerAddModal, ModalButton } from 'components/ControllerModal';
 import { useController } from 'hooks';
+import { theme, GlobalStyle } from 'styles';
 
 interface Props extends PanelProps<any> {}
 
@@ -18,22 +19,25 @@ export const RootPanel: React.FC<Props> = ({ options }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   return (
-    <StyledPanelWrap>
-      <ModalButton onModal={() => setIsModalVisible(true)} />
-      <ControllerContainer
-        data={controllerData}
-        changeControllerItem={changeControllerItem}
-        changeControllerRadioItem={changeControllerRadioItem}
-        updateController={updateController}
-      />
-      {isModalVisible && (
-        <ControllerAddModal
-          isModalVisible={isModalVisible}
-          addController={addController}
-          handleClosed={() => setIsModalVisible(false)}
+    <ThemeProvider theme={theme}>
+      <GlobalStyle />
+      <StyledPanelWrap>
+        <ModalButton onModal={() => setIsModalVisible(true)} />
+        <ControllerContainer
+          data={controllerData}
+          changeControllerItem={changeControllerItem}
+          changeControllerRadioItem={changeControllerRadioItem}
+          updateController={updateController}
         />
-      )}
-    </StyledPanelWrap>
+        {isModalVisible && (
+          <ControllerAddModal
+            isModalVisible={isModalVisible}
+            addController={addController}
+            handleClosed={() => setIsModalVisible(false)}
+          />
+        )}
+      </StyledPanelWrap>
+    </ThemeProvider>
   );
 };
 

@@ -8,7 +8,7 @@ export const plugin = new PanelPlugin<any>(RootPanel).setPanelOptions(
   builder => {
     return builder.addTextInput({
       path: 'text',
-      name: 'Server Domain',
+      name: '',
       defaultValue: 'https://',
       description: 'API Domain Url',
     });

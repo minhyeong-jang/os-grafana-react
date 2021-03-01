@@ -4,6 +4,7 @@ export const ControllerItemWrap = styled.div`
   display: flex;
   align-items: center;
   height: 32px;
+  color: #c7d0d9 !important;
 
   &:not(:last-child) {
     margin: 0 0 10px;

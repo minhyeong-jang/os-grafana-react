@@ -26,27 +26,23 @@ const ControllerDefaultTableComponent: FC<Props> = ({
         {items.map((item, index) => (
           <StyledLi key={index}>
             <StyledItem>
-              <Input
+              <StyledInput
                 value={item.label}
                 onChange={e => changeLabel(item.id, e.target.value)}
               />
             </StyledItem>
             <StyledAction>
-              <Button type="primary" onClick={() => removeItems(item.id)}>
+              <StyledButton onClick={() => removeItems(item.id)}>
                 Delete
-              </Button>
+              </StyledButton>
             </StyledAction>
           </StyledLi>
         ))}
         <StyledLi>
           <StyledItem>
-            <Button
-              type="primary"
-              style={{ width: '100%' }}
-              onClick={() => addItems()}
-            >
+            <StyledButton style={{ width: '100%' }} onClick={() => addItems()}>
               Add Item
-            </Button>
+            </StyledButton>
           </StyledItem>
         </StyledLi>
       </StyledUl>
@@ -68,6 +64,12 @@ const StyledItem = styled.div`
 const StyledAction = styled.div`
   flex: 0 0 100px;
   text-align: center;
+`;
+const StyledInput = styled(Input)`
+  ${({ theme }) => theme.input.defaultInput};
+`;
+const StyledButton = styled.button`
+  ${({ theme }) => theme.button.defaultButton};
 `;
 
 export const ControllerDefaultTable = memo(ControllerDefaultTableComponent);

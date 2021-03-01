@@ -97,6 +97,7 @@ export const ControllerAddModal: FC<Props> = ({
 
 const StyledModalWrap = styled.div`
   margin: -10px 0;
+  background-color: ${({ theme }) => theme.color.background};
 `;
 const StyledPreviewTitle = styled.p`
   margin: 30px 0px 10px;
@@ -104,6 +105,6 @@ const StyledPreviewTitle = styled.p`
 `;
 const StyledControllerItemList = styled(ControllerItemList)`
   padding: 15px;
-  border: 1px solid #dedede;
+  border: 1px solid ${({ theme }) => theme.color.border};
   border-radius: 5px;
 `;
