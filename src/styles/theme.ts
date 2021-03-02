@@ -20,13 +20,17 @@ export const theme: DefaultTheme = {
         color: #c7d0d9 !important;
         border-color: #202226 !important;
       }
+      &:disabled {
+        cursor: not-allowed;
+        background-color: rgb(74 74 74) !important;
+      }
     `,
   },
   input: {
     defaultInput: `
-      background-color: #15171a;
+      background-color: #15171a !important;
       color: #c7d0d9;
-      border: 1px solid #202226;
+      border: 1px solid #202226 !important;
       
       &:hover {
         border-color: #202226;

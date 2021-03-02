@@ -11,17 +11,19 @@ import { ControllerType } from './ControllerType';
 import { ControllerMultipleTable } from './ControllerMultipleTable';
 import { ControllerDefaultTable } from './ControllerDefaultTable';
 import { generateControllerItem } from 'utils';
-import { AddController } from 'hooks';
+import { CreateController } from 'hooks';
 import { ControllerItemList } from 'components/ControllerItemList';
 
 interface Props {
+  loading: boolean;
   isModalVisible: boolean;
-  addController(data: AddController): Promise<boolean>;
+  createController(data: CreateController): Promise<boolean>;
   handleClosed(): void;
 }
 export const ControllerAddModal: FC<Props> = ({
+  loading,
   isModalVisible,
-  addController,
+  createController,
   handleClosed,
 }) => {
   const [title, setTitle] = useState('');
@@ -33,7 +35,7 @@ export const ControllerAddModal: FC<Props> = ({
   }, [type]);
 
   const onOk = async () => {
-    const res = await addController({ title, type, items });
+    const res = await createController({ title, type, items });
     if (res) {
       handleClosed();
     }
@@ -67,6 +69,9 @@ export const ControllerAddModal: FC<Props> = ({
       title="컨트롤러 추가"
       visible={isModalVisible}
       onOk={() => onOk()}
+      okButtonProps={{
+        disabled: loading,
+      }}
       onCancel={() => handleClosed()}
     >
       <StyledModalWrap>

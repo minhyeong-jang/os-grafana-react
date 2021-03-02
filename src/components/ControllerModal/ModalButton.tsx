@@ -4,9 +4,9 @@ import styled from 'styled-components';
 interface Props {
   onModal(): void;
 }
-export const ModalButton: FC<Props> = ({ onModal }) => {
+export const ModalButton: FC<Props> = ({ onModal, children }) => {
   return (
-    <StyledAddButton onClick={() => onModal()}>컨트롤러 추가</StyledAddButton>
+    <StyledAddButton onClick={() => onModal()}>{children}</StyledAddButton>
   );
 };
 const StyledAddButton = styled.button`

@@ -1,15 +1,16 @@
 import {
-  putController,
+  updateController,
   getController,
   ControllerData,
   ControllerDataType,
   ControllerDataItems,
-  postController,
+  createController,
 } from 'api';
 import { useEffect, useState } from 'react';
 import randomstring from 'randomstring';
+import { PanelOptions } from 'types';
 
-export interface AddController {
+export interface CreateController {
   title: string;
   type: ControllerDataType;
   items: ControllerDataItems[];
@@ -24,7 +25,14 @@ export interface ChangeControllerRadioItem {
   value: string | number;
 }
 
-export const useController = (serverUrl: string) => {
+export const useController = ({
+  createControllerUrl,
+  createControllerMethod,
+  getControllerUrl,
+  getControllerMethod,
+  updateControllerUrl,
+  updateControllerMethod,
+}: PanelOptions) => {
   const [controllerData, setControllerData] = useState<ControllerData[]>([
     {
       id: 'jhYkvDew5Y9Okx85x9TGQsqaAvG8s2eW',
@@ -111,8 +119,24 @@ export const useController = (serverUrl: string) => {
       ],
     },
   ]);
+  const [loading, setLoading] = useState(false);
 
-  const addController = async ({ title, type, items }: AddController) => {
+  const getControllerData = async () => {
+    try {
+      const res = await getController(getControllerMethod, getControllerUrl);
+      setControllerData(res.data);
+    } catch (e) {
+      alert('Get Controller Error');
+    }
+  };
+
+  const onCreateController = async ({
+    title,
+    type,
+    items,
+  }: CreateController) => {
+    setLoading(true);
+
     if (!title) {
       alert('타이틀을 입력해주세요.');
       return false;
@@ -132,12 +156,31 @@ export const useController = (serverUrl: string) => {
       };
       setControllerData(prevState => [...prevState, data]);
 
-      await postController(serverUrl, data);
+      await createController(createControllerMethod, createControllerUrl, data);
 
       return true;
     } catch (e) {
-      alert(e);
+      alert('Create Controller Error');
       return true;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const onUpdateController = async (index: number) => {
+    setLoading(true);
+
+    const target = controllerData[index];
+    try {
+      await updateController(updateControllerMethod, updateControllerUrl, {
+        controllerId: target.id,
+        selectedId: target.selectedId,
+        items: target.items,
+      });
+    } catch (e) {
+      alert('Update Controller Error');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -162,32 +205,16 @@ export const useController = (serverUrl: string) => {
     setControllerData(newData);
   };
 
-  const updateController = async (index: number) => {
-    const target = controllerData[index];
-    await putController(serverUrl, {
-      controllerId: target.id,
-      selectedId: target.selectedId,
-      items: target.items,
-    });
-  };
-
   useEffect(() => {
-    const getControllerData = async () => {
-      try {
-        const res = await getController(serverUrl);
-        setControllerData(res.data);
-      } catch (e) {
-        console.log(e);
-      }
-    };
     getControllerData();
-  }, [serverUrl]);
+  }, []);
 
   return {
+    loading,
     controllerData,
-    addController,
+    createController: onCreateController,
     changeControllerItem,
     changeControllerRadioItem,
-    updateController,
+    updateController: onUpdateController,
   };
 };

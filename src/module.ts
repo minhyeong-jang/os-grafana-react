@@ -4,13 +4,111 @@ import { RootPanel } from './RootPanel';
 import 'antd/lib/style/core/motion.less';
 import 'antd/lib/style/components.less';
 
-export const plugin = new PanelPlugin<any>(RootPanel).setPanelOptions(
-  builder => {
-    return builder.addTextInput({
-      path: 'text',
-      name: '',
+export const plugin = new PanelPlugin(RootPanel).setPanelOptions(builder => {
+  return builder
+    .addRadio({
+      path: 'getControllerMethod',
+      defaultValue: 'get',
+      name: 'Get Controller Method',
+      settings: {
+        options: [
+          {
+            value: 'get',
+            label: 'GET',
+          },
+          {
+            value: 'post',
+            label: 'POST',
+          },
+          {
+            value: 'put',
+            label: 'PUT',
+          },
+          {
+            value: 'delete',
+            label: 'DELETE',
+          },
+        ],
+      },
+    })
+    .addTextInput({
+      path: 'getControllerUrl',
+      name: 'URL',
       defaultValue: 'https://',
-      description: 'API Domain Url',
+    })
+    .addRadio({
+      path: 'createControllerMethod',
+      name: 'Create Controller Method',
+      defaultValue: 'post',
+      settings: {
+        options: [
+          {
+            value: 'get',
+            label: 'GET',
+          },
+          {
+            value: 'post',
+            label: 'POST',
+          },
+          {
+            value: 'put',
+            label: 'PUT',
+          },
+          {
+            value: 'delete',
+            label: 'DELETE',
+          },
+        ],
+      },
+    })
+    .addTextInput({
+      path: 'createControllerUrl',
+      name: 'URL',
+      defaultValue: 'https://',
+    })
+    .addRadio({
+      path: 'updateControllerMethod',
+      name: 'Update Controller Method',
+      defaultValue: 'put',
+      settings: {
+        options: [
+          {
+            value: 'get',
+            label: 'GET',
+          },
+          {
+            value: 'post',
+            label: 'POST',
+          },
+          {
+            value: 'put',
+            label: 'PUT',
+          },
+          {
+            value: 'delete',
+            label: 'DELETE',
+          },
+        ],
+      },
+    })
+    .addTextInput({
+      path: 'updateControllerUrl',
+      name: 'URL',
+      defaultValue: 'https://',
+    })
+    .addBooleanSwitch({
+      path: 'showAddButton',
+      name: 'Show Add Controller Button',
+      defaultValue: true,
+    })
+    .addTextInput({
+      path: 'createButtonText',
+      name: 'Create Button Text',
+      defaultValue: 'Add Controller',
+    })
+    .addTextInput({
+      path: 'updateButtonText',
+      name: 'Update Button Text',
+      defaultValue: 'Update',
     });
-  },
-);
+});

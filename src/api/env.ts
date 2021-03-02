@@ -1,4 +1,5 @@
 import axios, { AxiosError, AxiosResponse } from 'axios';
+import { PanelOptionMethod } from 'types';
 
 export type MarshalableType =
   | boolean
@@ -40,52 +41,21 @@ const axiosErrorResToData = (err: AxiosError) => {
   throw error;
 };
 
-export const baseApi = {
-  delete<T, P>(url: string, params?: P): Promise<T> {
-    try {
-      return axios
-        .delete<T>(`${url}`, {
-          params,
-        })
-        .then(axiosResponseToData)
-        .catch(axiosErrorResToData);
-    } catch (error) {
-      return Promise.reject(error);
-    }
-  },
-  get<T = MarshalableType, P = Record<string, any> | void>(
-    url: string,
-    params?: P,
-  ): Promise<T> {
-    try {
-      return axios
-        .get<T>(`${url}`, {
-          params,
-        })
-        .then(axiosResponseToData)
-        .catch(axiosErrorResToData);
-    } catch (error) {
-      return Promise.reject(error);
-    }
-  },
-  post<T>(url: string, data: any = null): Promise<T> {
-    try {
-      return axios
-        .post<T>(url, data)
-        .then(axiosResponseToData)
-        .catch(axiosErrorResToData);
-    } catch (error) {
-      return Promise.reject(error);
-    }
-  },
-  put<T>(url: string, data: any = null): Promise<T> {
-    try {
-      return axios
-        .put<T>(url, data)
-        .then(axiosResponseToData)
-        .catch(axiosErrorResToData);
-    } catch (error) {
-      return Promise.reject(error);
-    }
-  },
+export const baseApi = <T = MarshalableType, P = Record<string, any> | void>(
+  method: PanelOptionMethod,
+  url: string,
+  params?: P,
+) => {
+  try {
+    return axios
+      .request<T>({
+        method,
+        url,
+        data: params,
+      })
+      .then(axiosResponseToData)
+      .catch(axiosErrorResToData);
+  } catch (error) {
+    return Promise.reject(error);
+  }
 };

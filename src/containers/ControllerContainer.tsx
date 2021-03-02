@@ -6,14 +6,18 @@ import React, { FC } from 'react';
 import styled from 'styled-components';
 
 interface Props {
+  loading: boolean;
   data: ControllerData[];
+  updateButtonText: string;
   updateController(index: number): void;
   changeControllerItem(data: ChangeControllerItem): void;
   changeControllerRadioItem(data: ChangeControllerRadioItem): void;
 }
 
 export const ControllerContainer: FC<Props> = ({
+  loading,
   data,
+  updateButtonText,
   updateController,
   changeControllerItem,
   changeControllerRadioItem,
@@ -31,8 +35,11 @@ export const ControllerContainer: FC<Props> = ({
             changeControllerRadioItem={changeControllerRadioItem}
             changeControllerItem={changeControllerItem}
           />
-          <StyledApplyButton onClick={() => updateController(index)}>
-            업데이트
+          <StyledApplyButton
+            disabled={loading}
+            onClick={() => updateController(index)}
+          >
+            {updateButtonText}
           </StyledApplyButton>
         </ControllerWrap>
       ))}
