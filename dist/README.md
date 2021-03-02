@@ -73,14 +73,12 @@ grafana-cli --pluginUrl https://github.com/minhyeong-jang/os-grafana-react/archi
 
 설치완료 후 서비스를 재시작합니다.
 
-
-
 ## 플러그인 사용하기
 
 ### Panel 생성
 
 1. Add Panel -> Visualization 에서 grafana-react 선택
-2. 하단 Display에서 입력값에 서버 URL 적용
+2. Display 탭에서 API method / url 입력
 
 ### 컨트롤러 사용
 
