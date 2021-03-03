@@ -36,34 +36,7 @@ export const useController = (options: PanelOptions, panelTitle: string) => {
     updateControllerMethod,
   } = options;
 
-  const [controllerData, setControllerData] = useState<ControllerData[]>([
-    {
-      id: 'jhYkvDew5Y9Okx85x9TGQsqaAvG8s2eW',
-      type: 'input',
-      title: '입력형',
-      selectedId: null,
-      items: [
-        {
-          id: 'uTn3QbAMgl36E6Lvf2JxchmOo9pgkuYp',
-          label: '입력형 1번',
-          type: 'input',
-          value: '',
-        },
-        {
-          id: 'h4ufjKwdol3BaaSjMqaunfwiZoXqAtds',
-          label: '입력형 2번',
-          type: 'input',
-          value: '',
-        },
-        {
-          id: '1jixYfrPxbAwGiqxDdBI5SRsmv1hOWa8',
-          label: '입력형 3번',
-          type: 'input',
-          value: '',
-        },
-      ],
-    },
-  ]);
+  const [controllerData, setControllerData] = useState<ControllerData[]>([]);
   const [loading, setLoading] = useState(false);
 
   const onGetController = async () => {
