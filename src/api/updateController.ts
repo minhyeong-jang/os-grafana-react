@@ -5,7 +5,7 @@ import { ControllerDataItems } from './getController';
 export interface UpdateControllerParams {
   controllerId: string | number;
   items: ControllerDataItems[];
-  selectedId: string | number | null;
+  selectedId?: string | number | null;
 }
 export interface UpdateControllerResponse {}
 

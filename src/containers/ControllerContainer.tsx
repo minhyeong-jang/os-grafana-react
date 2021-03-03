@@ -66,9 +66,9 @@ export const ControllerContainer: FC<Props> = ({
 };
 
 const StyledContainer = styled.div<{ columns: number }>`
-  display: grid;
-  gap: 0;
-  grid-template-columns: repeat(${({ columns }) => columns}, 1fr);
+  display: inline-block;
+  /* gap: 0; */
+  /* grid-template-columns: repeat(${({ columns }) => columns}, 1fr); */
   margin: 0px;
 `;
 const StyledApplyButton = styled.button`

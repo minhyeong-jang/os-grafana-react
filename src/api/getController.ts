@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { PanelOptionMethod } from 'types';
 import { baseApi } from './env';
 
@@ -10,7 +9,7 @@ export interface ControllerData {
   title: string;
   type: ControllerDataType;
   items: ControllerDataItems[];
-  selectedId: string | number | null;
+  selectedId?: string | number | null;
 }
 export interface ControllerDataItems {
   id: string | number;

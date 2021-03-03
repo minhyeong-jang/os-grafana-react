@@ -20,5 +20,5 @@ export const InputData: FC<Props> = ({ label, onChange, value }) => {
 
 const StyledInput = styled(Input)`
   ${({ theme }) => theme.input.defaultInput};
-  flex: 1 1 auto;
+  width: 200px;
 `;

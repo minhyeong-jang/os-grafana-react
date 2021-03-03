@@ -5,8 +5,9 @@ import {
   ControllerDataType,
   ControllerDataItems,
   createController,
+  UpdateControllerParams,
 } from 'api';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import randomstring from 'randomstring';
 import { PanelOptions } from 'types';
 
@@ -25,23 +26,61 @@ export interface ChangeControllerRadioItem {
   value: string | number;
 }
 
-export const useController = ({
-  createControllerUrl,
-  createControllerMethod,
-  getControllerUrl,
-  getControllerMethod,
-  updateControllerUrl,
-  updateControllerMethod,
-}: PanelOptions) => {
-  const [controllerData, setControllerData] = useState<ControllerData[]>([]);
+export const useController = (options: PanelOptions, panelTitle: string) => {
+  const {
+    createControllerUrl,
+    createControllerMethod,
+    getControllerUrl,
+    getControllerMethod,
+    updateControllerUrl,
+    updateControllerMethod,
+  } = options;
+
+  const [controllerData, setControllerData] = useState<ControllerData[]>([
+    {
+      id: 'jhYkvDew5Y9Okx85x9TGQsqaAvG8s2eW',
+      type: 'input',
+      title: '입력형',
+      selectedId: null,
+      items: [
+        {
+          id: 'uTn3QbAMgl36E6Lvf2JxchmOo9pgkuYp',
+          label: '입력형 1번',
+          type: 'input',
+          value: '',
+        },
+        {
+          id: 'h4ufjKwdol3BaaSjMqaunfwiZoXqAtds',
+          label: '입력형 2번',
+          type: 'input',
+          value: '',
+        },
+        {
+          id: '1jixYfrPxbAwGiqxDdBI5SRsmv1hOWa8',
+          label: '입력형 3번',
+          type: 'input',
+          value: '',
+        },
+      ],
+    },
+  ]);
   const [loading, setLoading] = useState(false);
 
   const onGetController = async () => {
     try {
       const res = await getController(getControllerMethod, getControllerUrl);
-      setControllerData(res.data);
+
+      if (
+        res?.data?.length &&
+        res.data[0].id !== undefined &&
+        res.data[0].items.length
+      ) {
+        setControllerData(res.data);
+      } else {
+        alert(`Get Controller Error "${panelTitle}"`);
+      }
     } catch (e) {
-      alert('Get Controller Error');
+      alert(`Get Controller Error "${panelTitle}"`);
     }
   };
 
@@ -86,14 +125,22 @@ export const useController = ({
   const onUpdateController = async (index: number) => {
     setLoading(true);
     const target = controllerData[index];
+    const params: UpdateControllerParams = {
+      controllerId: target.id,
+      items: target.items,
+    };
+    if (target.type === 'radio') {
+      params.selectedId = target.selectedId;
+    }
+
     try {
-      await updateController(updateControllerMethod, updateControllerUrl, {
-        controllerId: target.id,
-        selectedId: target.selectedId,
-        items: target.items,
-      });
+      await updateController(
+        updateControllerMethod,
+        updateControllerUrl,
+        params,
+      );
     } catch (e) {
-      alert(`Update Controller Error "${target.title}"`);
+      alert(`Update Controller Error "${panelTitle}"`);
     } finally {
       setLoading(false);
     }
