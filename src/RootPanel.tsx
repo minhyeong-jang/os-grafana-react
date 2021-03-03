@@ -9,7 +9,10 @@ import { PanelOptions } from 'types';
 
 interface Props extends PanelProps<PanelOptions> {}
 
-export const RootPanel: React.FC<Props> = ({ options }) => {
+export const RootPanel: React.FC<Props> = props => {
+  const { options } = props;
+  console.log(props);
+  console.log(props.timeRange.to);
   const {
     loading,
     controllerData,
