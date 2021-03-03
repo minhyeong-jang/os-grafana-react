@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { PanelProps } from '@grafana/data';
 import { ControllerContainer } from 'containers';
 import styled, { ThemeProvider } from 'styled-components';
@@ -10,18 +10,26 @@ import { PanelOptions } from 'types';
 interface Props extends PanelProps<PanelOptions> {}
 
 export const RootPanel: React.FC<Props> = props => {
-  const { options } = props;
-  console.log(props);
-  console.log(props.timeRange.to);
+  const { options, width, timeRange } = props;
   const {
     loading,
     controllerData,
+    getController,
     createController,
     changeControllerItem,
     changeControllerRadioItem,
     updateController,
   } = useController(options);
   const [isModalVisible, setIsModalVisible] = useState(false);
+
+  useEffect(() => {
+    const regex = new RegExp(
+      /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/,
+    );
+    if (options.getControllerUrl.match(regex)) {
+      getController();
+    }
+  }, [timeRange.to]);
 
   return (
     <ThemeProvider theme={theme}>
@@ -34,6 +42,7 @@ export const RootPanel: React.FC<Props> = props => {
         )}
         <ControllerContainer
           loading={loading}
+          width={width}
           data={controllerData}
           changeControllerItem={changeControllerItem}
           changeControllerRadioItem={changeControllerRadioItem}

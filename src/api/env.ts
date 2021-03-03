@@ -21,6 +21,9 @@ const getError = (message = '오류', status = 400, code?: string) => {
   };
 };
 
+const instance = axios.create({
+  timeout: 30000,
+});
 const axiosResponseToData = <T>(axiosRes: AxiosResponse<T>) => axiosRes.data;
 const axiosErrorResToData = (err: AxiosError) => {
   const res: AxiosResponse | undefined = err.response;
@@ -47,7 +50,7 @@ export const baseApi = <T = MarshalableType, P = Record<string, any> | void>(
   params?: P,
 ) => {
   try {
-    return axios
+    return instance
       .request<T>({
         method,
         url,

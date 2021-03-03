@@ -25,7 +25,7 @@ export const ControllerItemList: FC<Props> = ({
   ...props
 }) => {
   const onChange = (itemIndex: number, value: string | boolean) => {
-    if (controllerIndex && changeControllerItem) {
+    if (typeof controllerIndex === 'number' && changeControllerItem) {
       changeControllerItem({
         controllerIndex,
         itemIndex,
@@ -34,7 +34,7 @@ export const ControllerItemList: FC<Props> = ({
     }
   };
   const onRadioChange = (value: string) => {
-    if (controllerIndex && changeControllerRadioItem) {
+    if (typeof controllerIndex === 'number' && changeControllerRadioItem) {
       changeControllerRadioItem({
         controllerIndex,
         value,

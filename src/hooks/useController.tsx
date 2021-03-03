@@ -36,7 +36,7 @@ export const useController = ({
   const [controllerData, setControllerData] = useState<ControllerData[]>([]);
   const [loading, setLoading] = useState(false);
 
-  const getControllerData = async () => {
+  const onGetController = async () => {
     try {
       const res = await getController(getControllerMethod, getControllerUrl);
       setControllerData(res.data);
@@ -85,15 +85,15 @@ export const useController = ({
 
   const onUpdateController = async (index: number) => {
     setLoading(true);
+    const target = controllerData[index];
     try {
-      const target = controllerData[index];
       await updateController(updateControllerMethod, updateControllerUrl, {
         controllerId: target.id,
         selectedId: target.selectedId,
         items: target.items,
       });
     } catch (e) {
-      alert('Update Controller Error');
+      alert(`Update Controller Error "${target.title}"`);
     } finally {
       setLoading(false);
     }
@@ -120,13 +120,10 @@ export const useController = ({
     setControllerData(newData);
   };
 
-  useEffect(() => {
-    getControllerData();
-  }, []);
-
   return {
     loading,
     controllerData,
+    getController: onGetController,
     createController: onCreateController,
     changeControllerItem,
     changeControllerRadioItem,
