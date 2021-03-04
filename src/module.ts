@@ -110,5 +110,31 @@ export const plugin = new PanelPlugin(RootPanel).setPanelOptions(builder => {
       path: 'updateButtonText',
       name: 'Update Button Text',
       defaultValue: 'Update',
+    })
+    .addRadio({
+      path: 'updateButtonAlign',
+      name: 'Update Button Align',
+      defaultValue: 'center',
+      settings: {
+        options: [
+          {
+            value: 'left',
+            label: 'Left',
+          },
+          {
+            value: 'center',
+            label: 'Center',
+          },
+          {
+            value: 'right',
+            label: 'Right',
+          },
+        ],
+      },
+    })
+    .addBooleanSwitch({
+      path: 'showErrorMessage',
+      name: 'Show Error Message',
+      defaultValue: false,
     });
 });

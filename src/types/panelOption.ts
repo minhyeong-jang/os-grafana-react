@@ -1,5 +1,5 @@
 export type PanelOptionMethod = 'get' | 'post' | 'put' | 'delete';
-
+export type PanelOptionAlign = 'left' | 'center' | 'right';
 export interface PanelOptions {
   showAddButton: boolean;
   createButtonText: string;
@@ -10,4 +10,6 @@ export interface PanelOptions {
   updateButtonText: string;
   updateControllerUrl: string;
   updateControllerMethod: PanelOptionMethod;
+  updateButtonAlign: PanelOptionAlign;
+  showErrorMessage: boolean;
 }
