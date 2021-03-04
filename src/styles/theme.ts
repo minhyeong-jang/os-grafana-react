@@ -28,7 +28,7 @@ export const theme: DefaultTheme = {
   },
   input: {
     defaultInput: `
-      background-color: #15171a !important;
+      background-color: #4f5053 !important;
       color: #c7d0d9;
       border: 1px solid #202226 !important;
       
