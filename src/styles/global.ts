@@ -35,4 +35,10 @@ export const GlobalStyle = createGlobalStyle`
   .ant-select-selector {
     ${({ theme }) => theme.input.defaultInput};
   }
+  .ant-radio-group {
+    grid-column: 2;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+  }
 `;

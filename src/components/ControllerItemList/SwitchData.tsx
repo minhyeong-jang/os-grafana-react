@@ -10,9 +10,11 @@ interface Props {
 
 export const SwitchData: FC<Props> = ({ label, onChange, isChecked }) => {
   return (
-    <ControllerItemWrap>
-      <ControllerItemLabel>{label} : </ControllerItemLabel>
-      <Switch checked={isChecked} onChange={onChange} />
-    </ControllerItemWrap>
+    <>
+      <ControllerItemLabel>{label}</ControllerItemLabel>
+      <ControllerItemWrap>
+        <Switch checked={isChecked} onChange={onChange} />
+      </ControllerItemWrap>
+    </>
   );
 };

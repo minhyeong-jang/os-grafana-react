@@ -11,14 +11,16 @@ interface Props {
 
 export const InputData: FC<Props> = ({ label, onChange, value }) => {
   return (
-    <ControllerItemWrap>
-      <ControllerItemLabel>{label} : </ControllerItemLabel>
-      <StyledInput value={value} onChange={e => onChange(e.target.value)} />
-    </ControllerItemWrap>
+    <>
+      <ControllerItemLabel>{label}</ControllerItemLabel>
+      <ControllerItemWrap>
+        <StyledInput value={value} onChange={e => onChange(e.target.value)} />
+      </ControllerItemWrap>
+    </>
   );
 };
 
 const StyledInput = styled(Input)`
   ${({ theme }) => theme.input.defaultInput};
-  width: 200px;
+  flex: 1 1 auto;
 `;
