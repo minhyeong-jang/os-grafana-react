@@ -5,15 +5,13 @@ export const ControllerItemWrap = styled.div`
   align-items: center;
   height: 32px;
   color: #c7d0d9 !important;
-
-  &:not(:last-child) {
-    margin: 0 0 10px;
-  }
 `;
 
 export const ControllerItemLabel = styled.div`
   display: inline-block;
   margin-right: 20px;
   flex: 0 0 auto;
+  text-align: right;
   font-size: 14px !important;
+  color: #c7d0d9 !important;
 `;

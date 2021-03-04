@@ -6,7 +6,6 @@ import {
 } from 'api';
 import React, { FC, useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { ControllerTitle } from './ControllerTitle';
 import { ControllerType } from './ControllerType';
 import { ControllerMultipleTable } from './ControllerMultipleTable';
 import { ControllerDefaultTable } from './ControllerDefaultTable';
@@ -26,7 +25,6 @@ export const ControllerAddModal: FC<Props> = ({
   createController,
   handleClosed,
 }) => {
-  const [title, setTitle] = useState('');
   const [type, setType] = useState<ControllerDataType>('input');
   const [items, setItems] = useState<ControllerDataItems[]>([]);
 
@@ -35,7 +33,7 @@ export const ControllerAddModal: FC<Props> = ({
   }, [type]);
 
   const onOk = async () => {
-    const res = await createController({ title, type, items });
+    const res = await createController({ type, items });
     if (res) {
       handleClosed();
     }
@@ -75,7 +73,6 @@ export const ControllerAddModal: FC<Props> = ({
       onCancel={() => handleClosed()}
     >
       <StyledModalWrap>
-        <ControllerTitle title={title} onChange={setTitle} />
         <ControllerType value={type} onChange={setType} />
         {type === 'multiple' ? (
           <ControllerMultipleTable

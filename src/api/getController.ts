@@ -6,7 +6,6 @@ export interface GetControllerResponse {
 }
 export interface ControllerData {
   id: string | number;
-  title: string;
   type: ControllerDataType;
   items: ControllerDataItems[];
   selectedId?: string | number | null;

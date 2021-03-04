@@ -85,6 +85,11 @@ export const ControllerItemList: FC<Props> = ({
     </StyledWrap>
   );
 };
+
 const StyledWrap = styled.div`
-  flex: 1;
+  display: grid;
+  gap: 10px 0;
+  align-items: center;
+  grid-template-columns: 2;
+  grid-template-columns: auto 1fr;
 `;

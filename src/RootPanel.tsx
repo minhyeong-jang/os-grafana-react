@@ -44,6 +44,7 @@ export const RootPanel: React.FC<Props> = props => {
           loading={loading}
           width={width}
           data={controllerData}
+          updateButtonAlign={options.updateButtonAlign}
           changeControllerItem={changeControllerItem}
           changeControllerRadioItem={changeControllerRadioItem}
           updateController={updateController}

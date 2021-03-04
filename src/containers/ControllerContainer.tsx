@@ -1,15 +1,17 @@
 import { ControllerData } from 'api/getController';
 import { ControllerItemList } from 'components/ControllerItemList';
-import { ControllerTitle, ControllerWrap } from 'components/Layout';
+import { ControllerWrap } from 'components/Layout';
 import { ChangeControllerItem, ChangeControllerRadioItem } from 'hooks';
 import React, { FC, useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { PanelOptionAlign } from 'types';
 
 interface Props {
   loading: boolean;
   width: number;
   data: ControllerData[];
   updateButtonText: string;
+  updateButtonAlign: PanelOptionAlign;
   updateController(index: number): void;
   changeControllerItem(data: ChangeControllerItem): void;
   changeControllerRadioItem(data: ChangeControllerRadioItem): void;
@@ -20,6 +22,7 @@ export const ControllerContainer: FC<Props> = ({
   loading,
   data,
   updateButtonText,
+  updateButtonAlign,
   updateController,
   changeControllerItem,
   changeControllerRadioItem,
@@ -43,8 +46,7 @@ export const ControllerContainer: FC<Props> = ({
   return (
     <StyledContainer columns={columns}>
       {data.map((controller, index) => (
-        <ControllerWrap key={index}>
-          <ControllerTitle>{controller.title}</ControllerTitle>
+        <ControllerWrap>
           <ControllerItemList
             controllerIndex={index}
             selectedId={controller.selectedId}
@@ -54,6 +56,7 @@ export const ControllerContainer: FC<Props> = ({
             changeControllerItem={changeControllerItem}
           />
           <StyledApplyButton
+            updateButtonAlign={updateButtonAlign}
             disabled={loading}
             onClick={() => updateController(index)}
           >
@@ -66,12 +69,19 @@ export const ControllerContainer: FC<Props> = ({
 };
 
 const StyledContainer = styled.div<{ columns: number }>`
-  display: inline-block;
-  /* gap: 0; */
-  /* grid-template-columns: repeat(${({ columns }) => columns}, 1fr); */
+  display: grid;
+  gap: 0;
+  grid-template-columns: repeat(1, 1fr);
   margin: 0px;
 `;
-const StyledApplyButton = styled.button`
+const StyledApplyButton = styled.button<{
+  updateButtonAlign: PanelOptionAlign;
+}>`
+  margin: ${({ updateButtonAlign }) =>
+    updateButtonAlign === 'right'
+      ? '20px 0 0 auto'
+      : updateButtonAlign === 'left'
+      ? '20px auto 0 0'
+      : '20px auto 0'};
   ${({ theme }) => theme.button.defaultButton};
-  margin: 20px auto 0px;
 `;
