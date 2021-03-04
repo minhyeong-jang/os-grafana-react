@@ -10,9 +10,9 @@ import {
 import { useState } from 'react';
 import randomstring from 'randomstring';
 import { PanelOptions } from 'types';
+import { message } from 'antd';
 
 export interface CreateController {
-  title: string;
   type: ControllerDataType;
   items: ControllerDataItems[];
 }
@@ -34,6 +34,7 @@ export const useController = (options: PanelOptions, panelTitle: string) => {
     getControllerMethod,
     updateControllerUrl,
     updateControllerMethod,
+    showErrorMessage,
   } = options;
 
   const [controllerData, setControllerData] = useState<ControllerData[]>([]);
@@ -50,24 +51,17 @@ export const useController = (options: PanelOptions, panelTitle: string) => {
       ) {
         setControllerData(res.data);
       } else {
-        alert(`Get Controller Error "${panelTitle}"`);
+        showErrorMessage &&
+          message.error(`Get Controller Error "${panelTitle}"`);
       }
     } catch (e) {
-      alert(`Get Controller Error "${panelTitle}"`);
+      showErrorMessage && message.error(`Get Controller Error "${panelTitle}"`);
     }
   };
 
-  const onCreateController = async ({
-    title,
-    type,
-    items,
-  }: CreateController) => {
+  const onCreateController = async ({ type, items }: CreateController) => {
     setLoading(true);
 
-    if (!title) {
-      alert('타이틀을 입력해주세요.');
-      return false;
-    }
     if (!items.length) {
       alert('아이템이 없습니다.');
       return false;
@@ -77,19 +71,17 @@ export const useController = (options: PanelOptions, panelTitle: string) => {
       const data: ControllerData = {
         id: randomstring.generate(),
         type,
-        title,
         selectedId: type === 'radio' ? items[0].id : null,
         items,
       };
 
       await createController(createControllerMethod, createControllerUrl, data);
-
       setControllerData(prevState => [...prevState, data]);
 
       return true;
     } catch (e) {
-      alert('Create Controller Error');
-      return true;
+      showErrorMessage && message.error('Create Controller Error');
+      return false;
     } finally {
       setLoading(false);
     }
@@ -113,7 +105,8 @@ export const useController = (options: PanelOptions, panelTitle: string) => {
         params,
       );
     } catch (e) {
-      alert(`Update Controller Error "${panelTitle}"`);
+      showErrorMessage &&
+        message.error(`Update Controller Error "${panelTitle}"`);
     } finally {
       setLoading(false);
     }
