@@ -96,15 +96,50 @@ export const plugin = new PanelPlugin(RootPanel).setPanelOptions(builder => {
       name: 'URL',
       defaultValue: 'https://',
     })
+    .addRadio({
+      path: 'deleteControllerMethod',
+      name: 'Delete Controller Method',
+      defaultValue: 'delete',
+      settings: {
+        options: [
+          {
+            value: 'get',
+            label: 'GET',
+          },
+          {
+            value: 'post',
+            label: 'POST',
+          },
+          {
+            value: 'put',
+            label: 'PUT',
+          },
+          {
+            value: 'delete',
+            label: 'DELETE',
+          },
+        ],
+      },
+    })
+    .addTextInput({
+      path: 'deleteControllerUrl',
+      name: 'URL',
+      defaultValue: 'https://',
+    })
     .addBooleanSwitch({
-      path: 'showAddButton',
-      name: 'Show Add Controller Button',
+      path: 'showControllerButton',
+      name: 'Show Add/Delete Controller Button',
       defaultValue: true,
     })
     .addTextInput({
       path: 'createButtonText',
       name: 'Create Button Text',
       defaultValue: 'Add Controller',
+    })
+    .addTextInput({
+      path: 'deleteButtonText',
+      name: 'Delete Button Text',
+      defaultValue: 'Delete Controller',
     })
     .addTextInput({
       path: 'updateButtonText',

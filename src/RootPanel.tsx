@@ -19,6 +19,7 @@ export const RootPanel: React.FC<Props> = props => {
     changeControllerItem,
     changeControllerRadioItem,
     updateController,
+    deleteController,
   } = useController(options, title);
   const [isModalVisible, setIsModalVisible] = useState(false);
 
@@ -35,11 +36,16 @@ export const RootPanel: React.FC<Props> = props => {
     <ThemeProvider theme={theme}>
       <GlobalStyle />
       <StyledPanelWrap>
-        {options.showAddButton && (
-          <ModalButton onModal={() => setIsModalVisible(true)}>
-            {options.createButtonText}
-          </ModalButton>
-        )}
+        {options.showControllerButton &&
+          (controllerData.length ? (
+            <ModalButton onModal={() => deleteController()}>
+              {options.deleteButtonText}
+            </ModalButton>
+          ) : (
+            <ModalButton onModal={() => setIsModalVisible(true)}>
+              {options.createButtonText}
+            </ModalButton>
+          ))}
         <ControllerContainer
           loading={loading}
           width={width}
@@ -65,5 +71,5 @@ export const RootPanel: React.FC<Props> = props => {
 
 const StyledPanelWrap = styled.div`
   height: 100%;
-  overflow: scroll;
+  overflow: hidden;
 `;

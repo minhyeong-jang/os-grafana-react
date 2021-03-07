@@ -104,10 +104,15 @@ type ControllerType = 'switch' | 'radio' | 'input' | 'checkbox' | 'multiple';
 type ControllerItemType = 'switch' | 'radio' | 'input' | 'checkbox';
 ```
 
-### getController Response
+### Get Controller Response
 
-작성한 서버 URL을 get method로 호출합니다.  
-params는 없습니다.
+서버에서 컨트롤러 데이터를 호출합니다.
+
+```js
+# Method: `${option.getMethod}`
+# Request URL: `${option.getUrl}`
+# Response: <GetControllerResponse>
+```
 
 ```ts
 interface GetControllerResponse {
@@ -115,10 +120,9 @@ interface GetControllerResponse {
 }
 interface ControllerData {
   id: string | number;
-  title: string;
   type: ControllerDataType;
   items: ControllerDataItems[];
-  selectedId: string | number | null;
+  selectedId?: string | number | null;
 }
 interface ControllerDataItems {
   id: string | number;
@@ -128,17 +132,63 @@ interface ControllerDataItems {
 }
 ```
 
-### putController Params
+### Create Controller Params
 
-작성한 서버 URL을 put method로 호출합니다.  
-items는 get method 형식과 동일합니다.
+컨트롤러를 생성합니다.  
+파라미터는 Get Controller와 동일합니다.
+
+```js
+# Method: `${option.createMethod}`
+# Request URL: `${option.createUrl}`
+# Params: <ControllerData>
+```
+
+```ts
+interface ControllerData {
+  id: string | number;
+  type: ControllerDataType;
+  items: ControllerDataItems[];
+  selectedId?: string | number | null;
+}
+interface ControllerDataItems {
+  id: string | number;
+  type: ControllerItemType;
+  label: string;
+  value: boolean | string;
+}
+```
+
+### Update Controller Params
+
+컨트롤러를 수정합니다.
+
+```js
+# Method: `${option.updateMethod}`
+# Request URL: `${option.updateUrl}`
+# Params: <PutControllerParams>
+```
 
 ```ts
 interface PutControllerParams {
   controllerId: string | number;
   items: ControllerDataItems[];
-  selectedId: string | number | null;
+  selectedId?: string | number | null;
 }
+interface ControllerDataItems {
+  id: string | number;
+  type: ControllerItemType;
+  label: string;
+  value: boolean | string;
+}
+```
+
+### Delete Controller
+
+컨트롤러를 삭제합니다.
+
+```js
+# Method : `${option.deleteMethod}`
+# Request URL: `${option.deleteUrl}/${controllerId}`
 ```
 
 ## Learn more

@@ -1,8 +1,9 @@
 export type PanelOptionMethod = 'get' | 'post' | 'put' | 'delete';
 export type PanelOptionAlign = 'left' | 'center' | 'right';
 export interface PanelOptions {
-  showAddButton: boolean;
+  showControllerButton: boolean;
   createButtonText: string;
+  deleteButtonText: string;
   createControllerUrl: string;
   createControllerMethod: PanelOptionMethod;
   getControllerUrl: string;
@@ -10,6 +11,8 @@ export interface PanelOptions {
   updateButtonText: string;
   updateControllerUrl: string;
   updateControllerMethod: PanelOptionMethod;
+  deleteControllerUrl: string;
+  deleteControllerMethod: PanelOptionMethod;
   updateButtonAlign: PanelOptionAlign;
   showErrorMessage: boolean;
 }
