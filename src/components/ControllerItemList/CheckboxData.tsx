@@ -11,13 +11,13 @@ interface Props {
 export const CheckboxData: FC<Props> = ({ label, onChange, isChecked }) => {
   return (
     <>
-      <ControllerItemLabel>{label}</ControllerItemLabel>
-      <ControllerItemWrap>
+      <ControllerItemLabel>
         <Checkbox
           checked={isChecked}
           onChange={e => onChange(e.target.checked)}
         />
-      </ControllerItemWrap>
+      </ControllerItemLabel>
+      <ControllerItemWrap>{label}</ControllerItemWrap>
     </>
   );
 };
