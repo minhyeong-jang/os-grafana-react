@@ -19,6 +19,9 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react"
+    "jsx": "react",
+    "paths": {
+      "tslib": ["path/to/node_modules/tslib/tslib.d.ts"]
+    }
   }
 }

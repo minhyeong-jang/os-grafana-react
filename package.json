@@ -19,7 +19,8 @@
     "@types/randomstring": "^1.1.6",
     "@types/styled-components": "^5.1.7",
     "emotion": "10.0.27",
-    "prettier": "^2.2.1"
+    "prettier": "^2.2.1",
+    "tslib": "^2.1.0"
   },
   "engines": {
     "node": ">=14"
