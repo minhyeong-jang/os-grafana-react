@@ -171,6 +171,7 @@ interface ControllerDataItems {
 ```ts
 interface PutControllerParams {
   controllerId: string | number;
+  type: ControllerType;
   items: ControllerDataItems[];
   selectedId?: string | number | null;
 }
@@ -182,14 +183,14 @@ interface ControllerDataItems {
 }
 ```
 
-### Delete Controller
+<!-- ### Delete Controller
 
 컨트롤러를 삭제합니다.
 
 ```js
 # Method : `${option.deleteMethod}`
 # Request URL: `${option.deleteUrl}/${controllerId}`
-```
+``` -->
 
 ## Learn more
 
