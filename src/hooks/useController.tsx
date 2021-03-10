@@ -12,7 +12,6 @@ import { useState } from 'react';
 import randomstring from 'randomstring';
 import { PanelOptions } from 'types';
 import { message } from 'antd';
-import { numberOverrideProcessor } from '@grafana/data';
 
 export interface CreateController {
   type: ControllerDataType;
@@ -41,38 +40,7 @@ export const useController = (options: PanelOptions, panelTitle: string) => {
     showErrorMessage,
   } = options;
 
-  const [controllerData, setControllerData] = useState<ControllerData[]>([
-    {
-      id: 'xiecHphdmUaIYz0IwSE8pQicXfwW6nPu',
-      type: 'multiple',
-      items: [
-        {
-          id: 'Er6rriYbF6PQTrOepC9A3Wd84T66NQhU',
-          label: 'input 데이터',
-          type: 'input',
-          value: '',
-        },
-        {
-          id: 'ITSlOR4aGwjZ7WCUcSWY865guiAwq4vJ',
-          label: 'Checkbox 데이터',
-          type: 'checkbox',
-          value: false,
-        },
-        {
-          id: 'uz3J0i5xgRxjg6roW1Ed9DsbwVKW3osu',
-          label: '스위치 1',
-          type: 'switch',
-          value: false,
-        },
-        {
-          id: 'dyiUJCYd722gAxqribS7eeO9NTdh3UkJ',
-          label: '스위치 2',
-          type: 'switch',
-          value: false,
-        },
-      ],
-    },
-  ]);
+  const [controllerData, setControllerData] = useState<ControllerData[]>([]);
   const [loading, setLoading] = useState(false);
 
   const onGetController = async () => {
