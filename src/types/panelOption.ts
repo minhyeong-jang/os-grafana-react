@@ -15,4 +15,5 @@ export interface PanelOptions {
   deleteControllerMethod: PanelOptionMethod;
   updateButtonAlign: PanelOptionAlign;
   showErrorMessage: boolean;
+  dataJsonString: string;
 }

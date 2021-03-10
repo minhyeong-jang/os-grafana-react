@@ -8,7 +8,7 @@ import {
   UpdateControllerParams,
   deleteController,
 } from 'api';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import randomstring from 'randomstring';
 import { PanelOptions } from 'types';
 import { message } from 'antd';
@@ -27,7 +27,11 @@ export interface ChangeControllerRadioItem {
   value: string | number;
 }
 
-export const useController = (options: PanelOptions, panelTitle: string) => {
+export const useController = (
+  options: PanelOptions,
+  panelTitle: string,
+  onOptionsChange: (option: PanelOptions) => void,
+) => {
   const {
     createControllerUrl,
     createControllerMethod,
@@ -42,6 +46,14 @@ export const useController = (options: PanelOptions, panelTitle: string) => {
 
   const [controllerData, setControllerData] = useState<ControllerData[]>([]);
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (options.dataJsonString) {
+      try {
+        setControllerData(JSON.parse(options.dataJsonString));
+      } catch {}
+    }
+  }, []);
 
   const onGetController = async () => {
     try {
@@ -79,7 +91,9 @@ export const useController = (options: PanelOptions, panelTitle: string) => {
       };
 
       await createController(createControllerMethod, createControllerUrl, data);
+
       setControllerData(prevState => [...prevState, data]);
+      onOptionsChange({ ...options, dataJsonString: JSON.stringify([data]) });
 
       return true;
     } catch (e) {
@@ -110,7 +124,13 @@ export const useController = (options: PanelOptions, panelTitle: string) => {
         }
         return data;
       });
+
       setControllerData(updateData);
+      onOptionsChange({
+        ...options,
+        dataJsonString: JSON.stringify(updateData),
+      });
+
       return true;
     } catch (e) {
       showErrorMessage &&
@@ -139,6 +159,10 @@ export const useController = (options: PanelOptions, panelTitle: string) => {
         updateControllerUrl,
         params,
       );
+      onOptionsChange({
+        ...options,
+        dataJsonString: JSON.stringify([controllerData]),
+      });
     } catch (e) {
       showErrorMessage &&
         message.error(`Update Controller Error "${panelTitle}"`);

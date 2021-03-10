@@ -10,7 +10,7 @@ import { PanelOptions } from 'types';
 interface Props extends PanelProps<PanelOptions> {}
 
 export const RootContainer: React.FC<Props> = props => {
-  const { options, width, timeRange, title } = props;
+  const { options, width, timeRange, title, onOptionsChange } = props;
   const {
     loading,
     controllerData,
@@ -20,7 +20,7 @@ export const RootContainer: React.FC<Props> = props => {
     changeControllerRadioItem,
     updateController,
     updateControllerItems,
-  } = useController(options, title);
+  } = useController(options, title, onOptionsChange);
   const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {

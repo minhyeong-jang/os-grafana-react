@@ -174,6 +174,11 @@ export const plugin = new PanelPlugin(RootContainer).setPanelOptions(
           name: 'Show Error Message',
           defaultValue: false,
         })
+        .addTextInput({
+          path: 'dataJsonString',
+          name: 'Data Json String',
+          defaultValue: '',
+        })
     );
   },
 );
