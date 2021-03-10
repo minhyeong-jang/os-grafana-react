@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { PanelProps } from '@grafana/data';
 import { ControllerContainer } from 'containers';
 import styled, { ThemeProvider } from 'styled-components';
-import { ControllerAddModal, ModalButton } from 'components/ControllerModal';
+import { ControllerAddModal, ModalButton } from 'components/ControllerAddModal';
 import { useController } from 'hooks';
 import { theme, GlobalStyle } from 'styles';
 import { PanelOptions } from 'types';
