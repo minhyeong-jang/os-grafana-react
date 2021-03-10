@@ -78,7 +78,7 @@ export const useController = (options: PanelOptions, panelTitle: string) => {
         items,
       };
 
-      // await createController(createControllerMethod, createControllerUrl, data);
+      await createController(createControllerMethod, createControllerUrl, data);
       setControllerData(prevState => [...prevState, data]);
 
       return true;
