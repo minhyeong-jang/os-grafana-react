@@ -15,10 +15,10 @@ export const RadioData: FC<Props> = ({ items, selectedId, onChange }) => {
     <Radio.Group onChange={e => onChange(e.target.value)} value={selectedId}>
       {items.map(item => (
         <>
-          <ControllerItemLabel>{item.label}</ControllerItemLabel>
-          <ControllerItemWrap>
+          <ControllerItemLabel>
             <StyledRadio value={item.id} />
-          </ControllerItemWrap>
+          </ControllerItemLabel>
+          <ControllerItemWrap>{item.label}</ControllerItemWrap>
         </>
       ))}
     </Radio.Group>

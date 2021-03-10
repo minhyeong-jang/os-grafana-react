@@ -57,8 +57,8 @@ export const ControllerModal: FC<Props> = ({
         type,
         items,
       };
-      if (controllerData.selectedId && type === 'radio') {
-        params.selectedId = controllerData.selectedId;
+      if (type === 'radio') {
+        params.selectedId = null;
       }
       res = await updateController(params);
     } else {

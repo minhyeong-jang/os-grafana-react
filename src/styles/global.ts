@@ -28,7 +28,9 @@ export const GlobalStyle = createGlobalStyle`
       }
     }
   }
-
+  .ant-radio-wrapper {
+    margin-right: 0 !important;
+  }
   .ant-switch:not(.ant-switch-checked) {
     background-color: rgb(255 255 255 / 25%);
   }
