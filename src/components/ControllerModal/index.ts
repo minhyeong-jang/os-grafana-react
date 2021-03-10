@@ -1,4 +1,4 @@
-export * from './ControllerAddModal';
+export * from './ControllerModal';
 export * from './ControllerDefaultTable';
 export * from './ControllerMultipleTable';
 export * from './ControllerTitle';

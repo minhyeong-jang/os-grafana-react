@@ -134,14 +134,14 @@ export const plugin = new PanelPlugin(RootContainer).setPanelOptions(
           defaultValue: true,
         })
         .addTextInput({
-          path: 'createButtonText',
-          name: 'Create Button Text',
+          path: 'createModalButtonText',
+          name: 'Create Controller Modal Button Text',
           defaultValue: 'Add Controller',
         })
         .addTextInput({
-          path: 'deleteButtonText',
-          name: 'Delete Button Text',
-          defaultValue: 'Delete Controller',
+          path: 'updateModalButtonText',
+          name: 'Update Controller Modal Button Text',
+          defaultValue: 'Update Controller',
         })
         .addTextInput({
           path: 'updateButtonText',

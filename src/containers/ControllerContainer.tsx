@@ -12,7 +12,7 @@ interface Props {
   data: ControllerData[];
   updateButtonText: string;
   updateButtonAlign: PanelOptionAlign;
-  updateController(index: number): void;
+  updateControllerItems(id: string | number): void;
   changeControllerItem(data: ChangeControllerItem): void;
   changeControllerRadioItem(data: ChangeControllerRadioItem): void;
 }
@@ -23,7 +23,7 @@ export const ControllerContainer: FC<Props> = ({
   data,
   updateButtonText,
   updateButtonAlign,
-  updateController,
+  updateControllerItems,
   changeControllerItem,
   changeControllerRadioItem,
 }) => {
@@ -58,7 +58,7 @@ export const ControllerContainer: FC<Props> = ({
           <StyledApplyButton
             updateButtonAlign={updateButtonAlign}
             disabled={loading}
-            onClick={() => updateController(index)}
+            onClick={() => updateControllerItems(controller.id)}
           >
             {updateButtonText}
           </StyledApplyButton>

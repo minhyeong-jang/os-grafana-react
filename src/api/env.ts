@@ -22,7 +22,7 @@ const getError = (message = '오류', status = 400, code?: string) => {
 };
 
 const instance = axios.create({
-  timeout: 30000,
+  timeout: 3000,
 });
 const axiosResponseToData = <T>(axiosRes: AxiosResponse<T>) => axiosRes.data;
 const axiosErrorResToData = (err: AxiosError) => {

@@ -2,10 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { PanelProps } from '@grafana/data';
 import { ControllerContainer } from './ControllerContainer';
 import styled, { ThemeProvider } from 'styled-components';
-import {
-  ControllerAddModal,
-  ModalButton,
-} from '../components/ControllerAddModal';
+import { ControllerModal, ModalButton } from '../components/ControllerModal';
 import { useController } from 'hooks';
 import { theme, GlobalStyle } from 'styles';
 import { PanelOptions } from 'types';
@@ -22,10 +19,9 @@ export const RootContainer: React.FC<Props> = props => {
     changeControllerItem,
     changeControllerRadioItem,
     updateController,
-    deleteController,
+    updateControllerItems,
   } = useController(options, title);
-  const [addModalVisible, setAddModalVisible] = useState(false);
-  const [deleteModalVisible, setDeleteModalVisible] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
     const regex = new RegExp(
@@ -40,16 +36,13 @@ export const RootContainer: React.FC<Props> = props => {
     <ThemeProvider theme={theme}>
       <GlobalStyle />
       <StyledPanelWrap>
-        {options.showControllerButton &&
-          (controllerData.length ? (
-            <ModalButton onModal={() => setDeleteModalVisible(true)}>
-              {options.deleteButtonText}
-            </ModalButton>
-          ) : (
-            <ModalButton onModal={() => setAddModalVisible(true)}>
-              {options.createButtonText}
-            </ModalButton>
-          ))}
+        {options.showControllerButton && (
+          <ModalButton onModal={() => setModalVisible(true)}>
+            {controllerData.length
+              ? options.updateModalButtonText
+              : options.createModalButtonText}
+          </ModalButton>
+        )}
         <ControllerContainer
           loading={loading}
           width={width}
@@ -57,23 +50,17 @@ export const RootContainer: React.FC<Props> = props => {
           updateButtonAlign={options.updateButtonAlign}
           changeControllerItem={changeControllerItem}
           changeControllerRadioItem={changeControllerRadioItem}
-          updateController={updateController}
+          updateControllerItems={updateControllerItems}
           updateButtonText={options.updateButtonText}
         />
-        {addModalVisible && (
-          <ControllerAddModal
+        {modalVisible && (
+          <ControllerModal
+            controllerData={controllerData[0]}
             loading={loading}
-            isModalVisible={addModalVisible}
+            isModalVisible={modalVisible}
             createController={createController}
-            handleClosed={() => setAddModalVisible(false)}
-          />
-        )}
-        {deleteModalVisible && (
-          <ControllerAddModal
-            loading={loading}
-            isModalVisible={deleteModalVisible}
-            createController={createController}
-            handleClosed={() => setAddModalVisible(false)}
+            updateController={updateController}
+            handleClosed={() => setModalVisible(false)}
           />
         )}
       </StyledPanelWrap>

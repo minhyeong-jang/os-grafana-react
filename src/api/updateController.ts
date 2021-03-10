@@ -1,9 +1,10 @@
 import { PanelOptionMethod } from 'types';
 import { baseApi } from './env';
-import { ControllerDataItems } from './getController';
+import { ControllerDataItems, ControllerDataType } from './getController';
 
 export interface UpdateControllerParams {
   controllerId: string | number;
+  type: ControllerDataType;
   items: ControllerDataItems[];
   selectedId?: string | number | null;
 }

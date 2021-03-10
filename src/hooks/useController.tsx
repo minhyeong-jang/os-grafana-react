@@ -12,6 +12,7 @@ import { useState } from 'react';
 import randomstring from 'randomstring';
 import { PanelOptions } from 'types';
 import { message } from 'antd';
+import { numberOverrideProcessor } from '@grafana/data';
 
 export interface CreateController {
   type: ControllerDataType;
@@ -121,11 +122,43 @@ export const useController = (options: PanelOptions, panelTitle: string) => {
     }
   };
 
-  const onUpdateController = async (index: number) => {
+  const onUpdateController = async (params: UpdateControllerParams) => {
     setLoading(true);
-    const target = controllerData[index];
-    const params: UpdateControllerParams = {
+
+    try {
+      await updateController(
+        updateControllerMethod,
+        updateControllerUrl,
+        params,
+      );
+      const updateData = controllerData.map(data => {
+        if (data.id === params.controllerId) {
+          return {
+            id: params.controllerId,
+            type: params.type,
+            selectedId: params.selectedId,
+            items: params.items,
+          };
+        }
+        return data;
+      });
+      setControllerData(updateData);
+      return true;
+    } catch (e) {
+      showErrorMessage &&
+        message.error(`Update Controller Error "${panelTitle}"`);
+      return false;
+    } finally {
+      setLoading(false);
+    }
+  };
+  const onUpdateControllerItems = async (id: string | number) => {
+    setLoading(true);
+
+    const target = controllerData.filter(item => item.id === id)[0];
+    let params: UpdateControllerParams = {
       controllerId: target.id,
+      type: target.type,
       items: target.items,
     };
     if (target.type === 'radio') {
@@ -191,5 +224,6 @@ export const useController = (options: PanelOptions, panelTitle: string) => {
     changeControllerItem,
     changeControllerRadioItem,
     updateController: onUpdateController,
+    updateControllerItems: onUpdateControllerItems,
   };
 };

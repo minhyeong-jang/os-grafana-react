@@ -1,8 +1,10 @@
 import { Modal } from 'antd';
 import {
+  ControllerData,
   ControllerDataItems,
   ControllerDataType,
   ControllerItemType,
+  UpdateControllerParams,
 } from 'api';
 import React, { FC, useEffect, useState } from 'react';
 import styled from 'styled-components';
@@ -15,25 +17,53 @@ import { ControllerItemList } from 'components/ControllerItemList';
 
 interface Props {
   loading: boolean;
+  controllerData: ControllerData | undefined;
   isModalVisible: boolean;
   createController(data: CreateController): Promise<boolean>;
+  updateController(params: UpdateControllerParams): Promise<boolean>;
   handleClosed(): void;
 }
-export const ControllerAddModal: FC<Props> = ({
+export const ControllerModal: FC<Props> = ({
   loading,
+  controllerData,
   isModalVisible,
   createController,
+  updateController,
   handleClosed,
 }) => {
   const [type, setType] = useState<ControllerDataType>('input');
   const [items, setItems] = useState<ControllerDataItems[]>([]);
 
   useEffect(() => {
-    setItems([generateControllerItem(type)]);
-  }, [type]);
+    if (controllerData) {
+      setType(controllerData.type);
+      setItems(controllerData.items);
+    }
+  }, [controllerData]);
+
+  useEffect(() => {}, [type]);
+
+  const typeChange = (value: ControllerDataType) => {
+    setType(value);
+    setItems([generateControllerItem(value)]);
+  };
 
   const onOk = async () => {
-    const res = await createController({ type, items });
+    let res = false;
+
+    if (controllerData) {
+      const params: UpdateControllerParams = {
+        controllerId: controllerData.id,
+        type,
+        items,
+      };
+      if (controllerData.selectedId && type === 'radio') {
+        params.selectedId = controllerData.selectedId;
+      }
+      res = await updateController(params);
+    } else {
+      res = await createController({ type, items });
+    }
     if (res) {
       handleClosed();
     }
@@ -64,7 +94,7 @@ export const ControllerAddModal: FC<Props> = ({
 
   return (
     <Modal
-      title="컨트롤러 추가"
+      title={`컨트롤러 ${controllerData ? '수정' : '추가'}`}
       visible={isModalVisible}
       onOk={() => onOk()}
       okButtonProps={{
@@ -73,7 +103,7 @@ export const ControllerAddModal: FC<Props> = ({
       onCancel={() => handleClosed()}
     >
       <StyledModalWrap>
-        <ControllerType value={type} onChange={setType} />
+        <ControllerType value={type} onChange={typeChange} />
         {type === 'multiple' ? (
           <ControllerMultipleTable
             items={items}
