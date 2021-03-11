@@ -14,23 +14,18 @@ export const RootContainer: React.FC<Props> = props => {
   const {
     loading,
     controllerData,
-    getController,
     createController,
     changeControllerItem,
     changeControllerRadioItem,
     updateController,
     updateControllerItems,
-  } = useController(options, title, onOptionsChange);
+  } = useController({
+    options,
+    title,
+    timeRange,
+    onOptionsChange,
+  });
   const [modalVisible, setModalVisible] = useState(false);
-
-  useEffect(() => {
-    const regex = new RegExp(
-      /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/,
-    );
-    if (options.getControllerUrl.match(regex)) {
-      getController();
-    }
-  }, [timeRange.to]);
 
   return (
     <ThemeProvider theme={theme}>

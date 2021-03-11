@@ -12,6 +12,7 @@ import { useEffect, useState } from 'react';
 import randomstring from 'randomstring';
 import { PanelOptions } from 'types';
 import { message } from 'antd';
+import { TimeRange } from '@grafana/data';
 
 export interface CreateController {
   type: ControllerDataType;
@@ -27,11 +28,18 @@ export interface ChangeControllerRadioItem {
   value: string | number;
 }
 
-export const useController = (
-  options: PanelOptions,
-  panelTitle: string,
-  onOptionsChange: (option: PanelOptions) => void,
-) => {
+interface Props {
+  options: PanelOptions;
+  title: string;
+  timeRange: TimeRange;
+  onOptionsChange: (option: PanelOptions) => void;
+}
+export const useController = ({
+  options,
+  title,
+  timeRange,
+  onOptionsChange,
+}: Props) => {
   const {
     createControllerUrl,
     createControllerMethod,
@@ -42,22 +50,20 @@ export const useController = (
     deleteControllerUrl,
     deleteControllerMethod,
     showErrorMessage,
+    dataJsonString,
   } = options;
 
   const [controllerData, setControllerData] = useState<ControllerData[]>([]);
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    if (options.dataJsonString) {
-      try {
-        setControllerData(JSON.parse(options.dataJsonString));
-      } catch {}
-    }
-  }, []);
-
-  const onGetController = async () => {
+  const onGetController = async (id: string | number) => {
     try {
-      const res = await getController(getControllerMethod, getControllerUrl);
+      if (!id) return;
+
+      const res = await getController(
+        getControllerMethod,
+        `${getControllerUrl}/${id}`,
+      );
 
       if (
         res?.data?.length &&
@@ -66,11 +72,10 @@ export const useController = (
       ) {
         setControllerData(res.data);
       } else {
-        showErrorMessage &&
-          message.error(`Get Controller Error "${panelTitle}"`);
+        showErrorMessage && message.error(`Get Controller Error "${title}"`);
       }
     } catch (e) {
-      showErrorMessage && message.error(`Get Controller Error "${panelTitle}"`);
+      showErrorMessage && message.error(`Get Controller Error "${title}"`);
     }
   };
 
@@ -133,8 +138,7 @@ export const useController = (
 
       return true;
     } catch (e) {
-      showErrorMessage &&
-        message.error(`Update Controller Error "${panelTitle}"`);
+      showErrorMessage && message.error(`Update Controller Error "${title}"`);
       return false;
     } finally {
       setLoading(false);
@@ -164,8 +168,7 @@ export const useController = (
         dataJsonString: JSON.stringify([controllerData]),
       });
     } catch (e) {
-      showErrorMessage &&
-        message.error(`Update Controller Error "${panelTitle}"`);
+      showErrorMessage && message.error(`Update Controller Error "${title}"`);
     } finally {
       setLoading(false);
     }
@@ -202,10 +205,27 @@ export const useController = (
         setControllerData([]);
       }
     } catch (e) {
-      showErrorMessage &&
-        message.error(`Delete Controller Error "${panelTitle}"`);
+      showErrorMessage && message.error(`Delete Controller Error "${title}"`);
     }
   };
+
+  useEffect(() => {
+    if (dataJsonString) {
+      try {
+        const data = JSON.parse(dataJsonString);
+        setControllerData(data);
+
+        const regex = new RegExp(
+          /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/,
+        );
+        if (getControllerUrl.match(regex)) {
+          onGetController(data[0].id);
+        }
+      } catch {
+        showErrorMessage && message.error(`Get Controller Error "${title}"`);
+      }
+    }
+  }, [timeRange.to]);
 
   return {
     loading,
