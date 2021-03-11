@@ -7,6 +7,7 @@ import {
   createController,
   UpdateControllerParams,
   deleteController,
+  GetControllerResponse,
 } from 'api';
 import { useEffect, useState } from 'react';
 import randomstring from 'randomstring';
@@ -18,6 +19,10 @@ export interface CreateController {
   type: ControllerDataType;
   items: ControllerDataItems[];
 }
+export interface UpdateController {
+  type: ControllerDataType;
+  items: ControllerDataItems[];
+}
 export interface ChangeControllerItem {
   controllerIndex: number;
   itemIndex: number;
@@ -25,7 +30,7 @@ export interface ChangeControllerItem {
 }
 export interface ChangeControllerRadioItem {
   controllerIndex: number;
-  value: string | number;
+  value: number;
 }
 
 interface Props {
@@ -56,24 +61,23 @@ export const useController = ({
   const [controllerData, setControllerData] = useState<ControllerData[]>([]);
   const [loading, setLoading] = useState(false);
 
-  const onGetController = async (id: string | number) => {
+  const onGetController = async (data: ControllerData[]) => {
     try {
-      if (!id) return;
+      if (!data.length) return;
 
-      const res = await getController(
-        getControllerMethod,
-        `${getControllerUrl}/${id}`,
-      );
+      let target = data[0];
+      const res = await getController(getControllerMethod, getControllerUrl);
 
-      if (
-        res?.data?.length &&
-        res.data[0].id !== undefined &&
-        res.data[0].items.length
-      ) {
-        setControllerData(res.data);
-      } else {
-        showErrorMessage && message.error(`Get Controller Error "${title}"`);
+      if (res.items) {
+        res.items.map((resItem, index) => {
+          target.items[index].value = resItem.value;
+        });
+      } else if (res.selectedId !== undefined) {
+        target.selectedId = res.selectedId;
       }
+
+      setControllerData([target]);
+      onOptionsChange({ ...options, dataJsonString: JSON.stringify([target]) });
     } catch (e) {
       showErrorMessage && message.error(`Get Controller Error "${title}"`);
     }
@@ -91,7 +95,7 @@ export const useController = ({
       const data: ControllerData = {
         id: randomstring.generate(),
         type,
-        selectedId: type === 'radio' ? items[0].id : null,
+        selectedId: type === 'radio' ? 0 : null,
         items,
       };
 
@@ -109,8 +113,18 @@ export const useController = ({
     }
   };
 
-  const onUpdateController = async (params: UpdateControllerParams) => {
+  const onUpdateController = async ({ type, items }: UpdateController) => {
     setLoading(true);
+
+    let target = controllerData[0];
+    let params: UpdateControllerParams = {};
+    if (type === 'radio') {
+      params.selectedId = 0;
+    } else {
+      params.items = items.map(item => ({ value: item.value }));
+    }
+    target.type = type;
+    target.items = items;
 
     try {
       await updateController(
@@ -118,22 +132,11 @@ export const useController = ({
         updateControllerUrl,
         params,
       );
-      const updateData = controllerData.map(data => {
-        if (data.id === params.controllerId) {
-          return {
-            id: params.controllerId,
-            type: params.type,
-            selectedId: params.selectedId,
-            items: params.items,
-          };
-        }
-        return data;
-      });
 
-      setControllerData(updateData);
+      setControllerData([target]);
       onOptionsChange({
         ...options,
-        dataJsonString: JSON.stringify(updateData),
+        dataJsonString: JSON.stringify([target]),
       });
 
       return true;
@@ -148,13 +151,11 @@ export const useController = ({
     setLoading(true);
 
     const target = controllerData.filter(item => item.id === id)[0];
-    let params: UpdateControllerParams = {
-      controllerId: target.id,
-      type: target.type,
-      items: target.items,
-    };
+    let params: UpdateControllerParams = {};
     if (target.type === 'radio') {
-      params.selectedId = target.selectedId;
+      params.selectedId = target.selectedId || 0;
+    } else {
+      params.items = target.items.map(item => ({ value: item.value }));
     }
 
     try {
@@ -219,7 +220,7 @@ export const useController = ({
           /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/,
         );
         if (getControllerUrl.match(regex)) {
-          onGetController(data[0].id);
+          onGetController(data);
         }
       } catch {
         showErrorMessage && message.error(`Get Controller Error "${title}"`);

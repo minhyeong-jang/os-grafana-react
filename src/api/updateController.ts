@@ -1,12 +1,12 @@
 import { PanelOptionMethod } from 'types';
 import { baseApi } from './env';
-import { ControllerDataItems, ControllerDataType } from './getController';
 
+interface UpdateControllerResponseItem {
+  value: string | boolean;
+}
 export interface UpdateControllerParams {
-  controllerId: string | number;
-  type: ControllerDataType;
-  items: ControllerDataItems[];
-  selectedId?: string | number | null;
+  items?: UpdateControllerResponseItem[];
+  selectedId?: number;
 }
 export interface UpdateControllerResponse {}
 

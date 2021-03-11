@@ -13,10 +13,10 @@ interface Props {
 export const RadioData: FC<Props> = ({ items, selectedId, onChange }) => {
   return (
     <Radio.Group onChange={e => onChange(e.target.value)} value={selectedId}>
-      {items.map(item => (
+      {items.map((item, index) => (
         <>
           <ControllerItemLabel>
-            <StyledRadio value={item.id} />
+            <StyledRadio value={index} />
           </ControllerItemLabel>
           <ControllerItemWrap>{item.label}</ControllerItemWrap>
         </>

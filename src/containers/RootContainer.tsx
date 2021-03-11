@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { PanelProps } from '@grafana/data';
 import { ControllerContainer } from './ControllerContainer';
 import styled, { ThemeProvider } from 'styled-components';

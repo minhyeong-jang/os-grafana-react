@@ -12,7 +12,7 @@ import { ControllerType } from './ControllerType';
 import { ControllerMultipleTable } from './ControllerMultipleTable';
 import { ControllerDefaultTable } from './ControllerDefaultTable';
 import { generateControllerItem } from 'utils';
-import { CreateController } from 'hooks';
+import { CreateController, UpdateController } from 'hooks';
 import { ControllerItemList } from 'components/ControllerItemList';
 
 interface Props {
@@ -20,7 +20,7 @@ interface Props {
   controllerData: ControllerData | undefined;
   isModalVisible: boolean;
   createController(data: CreateController): Promise<boolean>;
-  updateController(params: UpdateControllerParams): Promise<boolean>;
+  updateController(data: UpdateController): Promise<boolean>;
   handleClosed(): void;
 }
 export const ControllerModal: FC<Props> = ({
@@ -52,15 +52,7 @@ export const ControllerModal: FC<Props> = ({
     let res = false;
 
     if (controllerData) {
-      const params: UpdateControllerParams = {
-        controllerId: controllerData.id,
-        type,
-        items,
-      };
-      if (type === 'radio') {
-        params.selectedId = null;
-      }
-      res = await updateController(params);
+      res = await updateController({ type, items });
     } else {
       res = await createController({ type, items });
     }

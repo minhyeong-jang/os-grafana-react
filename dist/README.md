@@ -115,20 +115,12 @@ type ControllerItemType = 'switch' | 'radio' | 'input' | 'checkbox';
 ```
 
 ```ts
+interface GetControllerResponseItem {
+  value: string | boolean;
+}
 interface GetControllerResponse {
-  data: ControllerData[];
-}
-interface ControllerData {
-  id: string | number;
-  type: ControllerDataType;
-  items: ControllerDataItems[];
-  selectedId?: string | number | null;
-}
-interface ControllerDataItems {
-  id: string | number;
-  type: ControllerItemType;
-  label: string;
-  value: boolean | string;
+  items?: GetControllerResponseItem[];
+  selectedId?: number;
 }
 ```
 
@@ -148,7 +140,7 @@ interface ControllerData {
   id: string | number;
   type: ControllerDataType;
   items: ControllerDataItems[];
-  selectedId?: string | number | null;
+  selectedId: number | null;
 }
 interface ControllerDataItems {
   id: string | number;
@@ -165,21 +157,16 @@ interface ControllerDataItems {
 ```js
 # Method: `${option.updateMethod}`
 # Request URL: `${option.updateUrl}`
-# Params: <PutControllerParams>
+# Params: <UpdateControllerParams>
 ```
 
 ```ts
-interface PutControllerParams {
-  controllerId: string | number;
-  type: ControllerType;
-  items: ControllerDataItems[];
-  selectedId?: string | number | null;
+interface UpdateControllerResponseItem {
+  value: string | boolean;
 }
-interface ControllerDataItems {
-  id: string | number;
-  type: ControllerItemType;
-  label: string;
-  value: boolean | string;
+interface UpdateControllerParams {
+  items?: UpdateControllerResponseItem[];
+  selectedId?: number;
 }
 ```
 
