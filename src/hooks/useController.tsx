@@ -7,7 +7,6 @@ import {
   createController,
   UpdateControllerParams,
   deleteController,
-  GetControllerResponse,
 } from 'api';
 import { useEffect, useState } from 'react';
 import randomstring from 'randomstring';
@@ -216,7 +215,11 @@ export const useController = ({
   useEffect(() => {
     if (dataJsonString) {
       try {
-        const data = JSON.parse(dataJsonString);
+        let data = JSON.parse(dataJsonString);
+        if (data.length && !data[0].id && data[0][0].id) {
+          data = data[0];
+        }
+
         setControllerData(data);
 
         const regex = new RegExp(
