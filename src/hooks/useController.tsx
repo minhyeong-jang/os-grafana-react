@@ -72,7 +72,10 @@ export const useController = ({
         res.items.map((resItem, index) => {
           target.items[index].value = resItem.value;
         });
-      } else if (res.selectedId !== undefined) {
+      } else if (
+        res.selectedId !== undefined &&
+        typeof res.selectedId === 'number'
+      ) {
         target.selectedId = res.selectedId;
       }
 
@@ -166,7 +169,7 @@ export const useController = ({
       );
       onOptionsChange({
         ...options,
-        dataJsonString: JSON.stringify([controllerData]),
+        dataJsonString: JSON.stringify([target]),
       });
     } catch (e) {
       showErrorMessage && message.error(`Update Controller Error "${title}"`);
