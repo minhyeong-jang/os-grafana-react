@@ -68,7 +68,7 @@ export const useController = ({
       let target = data[0];
       const res = await getController(getControllerMethod, getControllerUrl);
 
-      if (res.items) {
+      if (res.items && res.items.length && res.items[0].value !== undefined) {
         res.items.map((resItem, index) => {
           target.items[index].value = resItem.value;
         });

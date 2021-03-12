@@ -45,25 +45,26 @@ export const ControllerContainer: FC<Props> = ({
 
   return (
     <StyledContainer columns={columns}>
-      {data.map((controller, index) => (
-        <ControllerWrap>
-          <ControllerItemList
-            controllerIndex={index}
-            selectedId={controller.selectedId}
-            type={controller.type}
-            items={controller.items}
-            changeControllerRadioItem={changeControllerRadioItem}
-            changeControllerItem={changeControllerItem}
-          />
-          <StyledApplyButton
-            updateButtonAlign={updateButtonAlign}
-            disabled={loading}
-            onClick={() => updateControllerItems(controller.id)}
-          >
-            {updateButtonText}
-          </StyledApplyButton>
-        </ControllerWrap>
-      ))}
+      {data.length &&
+        data.map((controller, index) => (
+          <ControllerWrap>
+            <ControllerItemList
+              controllerIndex={index}
+              selectedId={controller.selectedId}
+              type={controller.type}
+              items={controller.items}
+              changeControllerRadioItem={changeControllerRadioItem}
+              changeControllerItem={changeControllerItem}
+            />
+            <StyledApplyButton
+              updateButtonAlign={updateButtonAlign}
+              disabled={loading}
+              onClick={() => updateControllerItems(controller.id)}
+            >
+              {updateButtonText}
+            </StyledApplyButton>
+          </ControllerWrap>
+        ))}
     </StyledContainer>
   );
 };
